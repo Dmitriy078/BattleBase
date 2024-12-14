@@ -1,16 +1,47 @@
 import os
 import pygame
-class MainMenu:
-    def __init__(self):
-        super().__init__()
-        self.is_reboot = False
-        pygame.init()
-        self.size = self.width, self.height = 800, 600
-        pygame.display.flip()
-        while pygame.event.wait().type != pygame.QUIT:
-            self.draw()
-        pygame.quit()
+import ctypes
 
+
+class MainMenu:
+    def __init__(self, settings):
+        self.frames = []
+        self.frame_current = 0
+        self.time = 0
+        self.is_reboot = False
+
+        self.size = self.width, self.height = 800, 680
+        self.screen = pygame.display.set_mode(self.size)
+        self.running = True
+        self.show()
+
+
+        self.load_textures()
+
+    def show(self):
+        self.load_textures()
+        clock = pygame.time.Clock()
+        time = 0
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
+                self.screen.blit(self.frames[self.frame_current], (0, 0))
+            clock.tick(60)
+            pygame.display.flip()
+            time += 1
+            if time >= 3:
+                self.frame_current = (self.frame_current + 1) % len(self.frames)
+                time = 0
+    def load_textures(self):
+        gif_files = ['./resources/menu/' + f for f in os.listdir('./resources/menu') if f.endswith('.gif')]
+        for file in gif_files:
+            self.frame = pygame.image.load(file).convert()
+            self.frame = pygame.transform.scale(pygame.image.load(file).convert(), self.size)
+            self.frames.append(self.frame)
     def draw(self, screen):
         screen.fill((216, 194, 255))
         font = pygame.font.Font(None, 50)

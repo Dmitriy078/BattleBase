@@ -1,12 +1,10 @@
 import csv
 class Settings:
     def __init__(self):
-        self.fps = 60
-
         self.load_settings()
 
     def load_settings(self):
-        with open("settings.csv", encoding="utf-8") as file:
+        with open("./resources/settings.csv", encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=';')
             reader = list(reader)
 
