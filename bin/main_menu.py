@@ -37,7 +37,7 @@ class MainMenu:
                 self.frame_current = (self.frame_current + 1) % len(self.frames)
                 time = 0
     def load_textures(self):
-        gif_files = ['./resources/menu/' + f for f in os.listdir('./resources/menu') if f.endswith('.gif')]
+        gif_files = ['../resources/menu/' + f for f in os.listdir('../resources/menu') if f.endswith('.gif')]
         for file in gif_files:
             self.frame = pygame.image.load(file).convert()
             self.frame = pygame.transform.scale(pygame.image.load(file).convert(), self.size)

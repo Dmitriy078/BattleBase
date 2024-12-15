@@ -4,7 +4,7 @@ class Settings:
         self.load_settings()
 
     def load_settings(self):
-        with open("./resources/settings.csv", encoding="utf-8") as file:
+        with open("../data/settings.csv", encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=';')
             reader = list(reader)
 
