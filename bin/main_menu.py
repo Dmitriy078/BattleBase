@@ -34,6 +34,7 @@ class MainMenu:
     def show_menu(self):
         clock = pygame.time.Clock()
         time = 0
+        right = False
         while self.running:
             self.screen.blit(self.frames[self.frame_current], (0, 0))
 
@@ -48,5 +49,15 @@ class MainMenu:
             pygame.display.flip()
             time += 1
             if time >= 3:
-                self.frame_current = (self.frame_current + 1) % len(self.frames)
+                if right:
+                    self.frame_current = self.frame_current - 1
+                else:
+                    self.frame_current = self.frame_current + 1
+
+                if self.frame_current < 0:
+                    self.frame_current = 0
+                    right = False
+                elif self.frame_current >= len(self.frames):
+                    self.frame_current = len(self.frames) - 1
+                    right = True
                 time = 0
