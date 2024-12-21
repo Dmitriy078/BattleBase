@@ -18,7 +18,7 @@ def start_game():
     main_menu.show_menu()
     return main_menu.is_reboot
 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 # Точка старта
 if __name__ == "__main__":
     reboot = start_game()
