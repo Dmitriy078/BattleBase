@@ -1,55 +1,63 @@
 import pygame
 import random
 
+# Инициализация Pygame
 pygame.init()
 
-#параметры окна
-width = 800
-height = 600
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Игровое поле')
+# Параметры игрового поля
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+CELL_SIZE = 50
 
-#загрузка текстур
-stone_texture = pygame.image.load('Tilemap_Elevation.png')
-grass_texture = pygame.image.load('08.png')
-tree_texture = pygame.image.load('Tree.png')
-bush_texture = pygame.image.load('01.png')
-#размер текстур
-texture_size = 32  # пиксели
+class PlayingField:
+    def __init__(self):
+        self.tiles = []
+        self.generate_tiles()
 
-#генерация игрового поля
-game_board = []
-for i in range(width // texture_size):
-    column = []
-for j in range(height // texture_size):
-    texture = grass_texture if random.random() < 0.8 else stone_texture
-    column.append(texture)
-    game_board.append(column)
+    def reserse(self):
+        self.stone_texture = pygame.image.load('Tilemap_Elevation.png')
+        self.grass_texture = pygame.image.load('08.png')
+        self.tree_texture = pygame.image.load('Tree.png')
+        self.bush_texture = pygame.image.load('01.png')
 
-#добавление деревьев, кустов и домов
-for i in range(width // texture_size):
-    for j in range(height // texture_size):
-        if random.random() < 0.3:
-            game_board[i][j] = tree_texture
-        elif random.random() < 0.05:
-            game_board[i][j] = bush_texture
-        elif random.random() < 0.01:
-            game_board[i][j] = grass_texture
+    def generate_tiles(self):
+        for x in range(0, SCREEN_WIDTH, CELL_SIZE):
+            column = []
+            for y in range(0, SCREEN_HEIGHT, CELL_SIZE):
+                if random.random() < 0.1:
+                    tile = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
+                    column.append(("bush_texture", tile))
+                    column.append(("tree_texture", tile))
+                else:
+                    tile = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
+                    column.append(("stone_texture", tile))
+            self.tiles.append(column)
 
-#отрисовка игрового поля
-for i in range(width // texture_size):
-    for j in range(height // texture_size):
-        screen.blit(game_board[i][j], (i * texture_size, j * texture_size))
+    def draw(self, screen):
+        for column in self.tiles:
+            for _, tile in column:
+                if _ == "stone_texture":
+                    pygame.draw.rect(screen, tile)
+                else:
+                    pygame.draw.rect(screen, tile)
 
-#обновление экрана
-pygame.display.flip()
+# Создаем игровое окно
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Playing Field")
 
-#основной цикл игры
+playing_field = PlayingField()
+
+# Основной игровой цикл
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-#завершение работы pygame
+    screen.fill((255, 255, 255))
+
+    playing_field.draw(screen)
+
+    pygame.display.flip()
+
 pygame.quit()
