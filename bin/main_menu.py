@@ -1,21 +1,16 @@
 from pygame_widgets.button import Button
 import pygame
+
+from bin.game_process import GameProcess
 from bin.ui.button import Button
 
 
-class AudioPlayer:
-    def play_sound(self, sound_name):
-        # Здесь можно добавить код для воспроизведения звука
-        print(f"Звук '{sound_name}' воспроизведён.")
-
-
-audio_player = AudioPlayer()
-
-
 class MainMenu:
-    def __init__(self, settings, registry, screen):
+    def __init__(self, settings, registry, audio, screen):
         self.settings = settings
         self.registry = registry
+        self.audio = audio
+        self.audio.play_music('resources/music/main_menu.mp3')
 
         self.frames = self.registry.bg_main_menu
         self.frame_current = 0
@@ -48,8 +43,10 @@ class MainMenu:
             offset_text_y=10,
             offset_text_press_x=2,
             offset_text_press_y=2,
-            audio_player=audio_player
+            audio_player=self.audio
         )
+        self.but_play.call = self.open_game
+
         self.but_settings = Button(
             texture=button_texture,
             texture_press=button_texture_press,
@@ -66,8 +63,9 @@ class MainMenu:
             offset_text_y=10,
             offset_text_press_x=2,
             offset_text_press_y=2,
-            audio_player=audio_player
+            audio_player=self.audio
         )
+        # self.but_settings.call =
 
         self.but_exit = Button(
             texture=button_texture,
@@ -85,8 +83,9 @@ class MainMenu:
             offset_text_y=10,
             offset_text_press_x=2,
             offset_text_press_y=2,
-            audio_player=audio_player
+            audio_player=self.audio
         )
+        self.but_exit.call = self.exit_game
 
     def show_menu(self):
         clock = pygame.time.Clock()
@@ -108,7 +107,6 @@ class MainMenu:
                     is_click = True
                 if event.type == pygame.MOUSEBUTTONUP:
                     is_click = False
-                #     self.but_play.setText('Clicked!')  # Обновляем текст кнопки
 
             # pygame_widgets.update(events)  # ОБЯЗАТЕЛЬНО для обновления виджетов
             self.but_play.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
@@ -136,3 +134,10 @@ class MainMenu:
                     self.frame_current = len(self.frames) - 1
                     right = True
                 time = 0
+
+    def exit_game(self):
+        self.running = False
+
+    def open_game(self):
+        game = GameProcess(self.settings, self.registry, self.audio, self.screen)
+        game.game()

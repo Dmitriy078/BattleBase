@@ -1,5 +1,7 @@
 import pygame
 import ctypes
+
+from bin.audio import AudioManager
 from bin.settings import Settings
 from bin.registry import Registry
 from bin.main_menu import MainMenu
@@ -14,7 +16,8 @@ def start_game():
     settings = Settings()
     screen = pygame.display.set_mode(settings.resolution)
     registry = Registry(settings.resolution)
-    main_menu = MainMenu(settings, registry, screen)
+    audio = AudioManager()
+    main_menu = MainMenu(settings, registry, audio, screen)
     main_menu.show_menu()
     return main_menu.is_reboot
 

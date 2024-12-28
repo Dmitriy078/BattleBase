@@ -1,8 +1,10 @@
 import pygame
 
 class GameProcess:
-    def __init__(self, settings, registry, screen):
+    def __init__(self, settings, registry, audio, screen):
         self.settings = settings
+        self.registry = registry
+        self.audio = audio
         self.is_reboot = False
         self.size = self.width, self.height = self.settings.resolution
         self.screen = screen
@@ -16,7 +18,7 @@ class GameProcess:
                 if event.type == pygame.QUIT:
                     self.running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.type == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE:
                         self.running = False
             pygame.display.flip()
             self.clock.tick(60)

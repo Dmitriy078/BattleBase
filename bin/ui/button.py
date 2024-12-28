@@ -19,13 +19,12 @@ class Button(Text):
         self.offset_text_press_y = offset_text_press_y
         self.audio_player = audio_player
         self.is_up = False
-        self.call = False
+        self.call = None
 
     # Отрисовка кнопки
     def draw(self, screen):
         if self.is_pressed:
             screen.blit(self.image_press, self.rect)
-            self.audio_player.play_sound('2button_press')
         else:
             screen.blit(self.image, self.rect)
 
@@ -59,13 +58,15 @@ class Button(Text):
         if self.rect.collidepoint(mouse_pos):
             if is_click:
                 if not self.is_pressed and self.audio_player:
-                    self.audio_player.play_sound('button_press')
+                    self.audio_player.play_sound('resources/sounds/press_button.mp3')
 
                 self.is_pressed = True
             else:
                 self.is_up = False
                 if self.is_pressed:
                     self.is_up = True
+                    if self.call:
+                        self.call()
                 self.is_pressed = False
         else:
             self.is_pressed = False
