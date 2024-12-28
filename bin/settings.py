@@ -16,5 +16,5 @@ class Settings:
                 elif key == "fps":
                     self.fps = int(value)
 
-    def save_settings(self, ):
+    def save_settings(self,):
         pass

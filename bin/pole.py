@@ -15,9 +15,9 @@ class PlayingField:
         self.generate_tiles()
 
     def reserse(self):
-        self.stone_texture = pygame.image.load('Tilemap_Elevation.png')
+        self.stone_texture = pygame.image.load('../Terrain/Ground/Tilemap_Elevation.png')
         self.grass_texture = pygame.image.load('08.png')
-        self.tree_texture = pygame.image.load('Tree.png')
+        self.tree_texture = pygame.image.load('../Resources/Trees/Tree.png')
         self.bush_texture = pygame.image.load('01.png')
 
     def generate_tiles(self):

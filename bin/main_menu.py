@@ -1,7 +1,7 @@
-from pygame_widgets.button import Button
 import pygame
 
 from bin.game_process import GameProcess
+from bin.show_settings import SettingsShow
 from bin.ui.button import Button
 
 
@@ -65,7 +65,7 @@ class MainMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-        self.but_settings.call = run_settings
+        self.but_settings.call = self.run_settings
         self.but_exit = Button(
             texture=button_texture,
             texture_press=button_texture_press,
@@ -141,3 +141,5 @@ class MainMenu:
         game = GameProcess(self.settings, self.registry, self.audio, self.screen)
         game.game()
     def run_settings(self):
+        set_show = SettingsShow(self.settings, self.registry, self.audio, self.screen)
+        set_show.set_display()
