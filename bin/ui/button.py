@@ -61,6 +61,7 @@ class Button(Text):
                     self.audio_player.play_sound('resources/sounds/press_button.mp3')
 
                 self.is_pressed = True
+                self.is_up = True
             else:
                 self.is_up = False
                 if self.is_pressed:
@@ -70,4 +71,4 @@ class Button(Text):
                 self.is_pressed = False
         else:
             self.is_pressed = False
-            self.is_up = False
+            self.is_up = True

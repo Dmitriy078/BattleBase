@@ -10,7 +10,7 @@ SCREEN_HEIGHT = 600
 CELL_SIZE = 50
 
 class PlayingField:
-    def __init__(self):
+    def __init__(self, screen_wigth, screen_height, cell_size):
         self.tiles = []
         self.generate_tiles()
 
@@ -41,23 +41,23 @@ class PlayingField:
                 else:
                     pygame.draw.rect(screen, (255, 255, 255), tile)
 
-# Создаем игровое окно
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Playing Field")
+# # Создаем игровое окно
+# screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# pygame.display.set_caption("Playing Field")
 
-playing_field = PlayingField()
-
-# Основной игровой цикл
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    screen.fill((255, 255, 255))
-
-    playing_field.draw(screen)
-
-    pygame.display.flip()
-
-pygame.quit()
+# playing_field = PlayingField()
+#
+# # Основной игровой цикл
+# running = True
+# while running:
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+#
+#     screen.fill((255, 255, 255))
+#
+#     playing_field.draw(screen)
+#
+#     pygame.display.flip()
+#
+# pygame.quit()

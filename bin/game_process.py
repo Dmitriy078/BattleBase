@@ -1,4 +1,7 @@
 import pygame
+import random
+
+CELL_SIZE = 50
 
 class GameProcess:
     def __init__(self, settings, registry, audio, screen):
@@ -22,3 +25,5 @@ class GameProcess:
                         self.running = False
             pygame.display.flip()
             self.clock.tick(60)
+
+

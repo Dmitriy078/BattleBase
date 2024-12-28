@@ -65,8 +65,7 @@ class MainMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-        # self.but_settings.call =
-
+        self.but_settings.call = run_settings
         self.but_exit = Button(
             texture=button_texture,
             texture_press=button_texture_press,
@@ -141,3 +140,4 @@ class MainMenu:
     def open_game(self):
         game = GameProcess(self.settings, self.registry, self.audio, self.screen)
         game.game()
+    def run_settings(self):
