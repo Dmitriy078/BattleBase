@@ -1,6 +1,5 @@
 import pygame
-from resources.button import Button
-from resources.text import Text
+from bin.ui.button import Button
 
 # Параметры окна
 WIDTH, HEIGHT = 800, 600
@@ -12,8 +11,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Кнопка в Pygame")
 
 # Загрузка изображений для кнопки
-button_texture = pygame.image.load("../resources/buttons/Button_Blue_3Slides.png")  # Основная текстура
-button_texture_press = pygame.image.load("../resources/buttons/Button_Blue_3Slides_Pressed.png")  # Текстура при нажатии
+button_texture = pygame.image.load("resources/buttons/Button_Blue_3Slides.png")  # Основная текстура
+button_texture_press = pygame.image.load("resources/buttons/Button_Blue_3Slides_Pressed.png")  # Текстура при нажатии
 
 # Создание шрифта
 font = 'Arial'
@@ -33,11 +32,11 @@ button = Button(
     texture=button_texture,
     texture_press=button_texture_press,
     text='ghb!',
-    x=350,
-    y=250,
+    x=200,
+    y=400,
     width=100,
     height=50,
-    text_color_rgb = (120, 100, 40),
+    text_color_rgb=(120, 100, 40),
     font=font,
     font_size=30,
     center_text=True,
@@ -50,7 +49,9 @@ button = Button(
 
 # Основной игровой цикл
 running = True
+is_click = True
 while running:
+    mouse_pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -58,18 +59,15 @@ while running:
         # Обработка нажатия кнопки мыши
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:  # Левая кнопка мыши
-                button.update(is_click=True, mouse_pos=event.pos)
-                button.draw(screen)  # Отрисовка кнопки
+                is_click = True
 
         # Обработка отпускания кнопки мыши
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:  # Левая кнопка мыши
-                button.update(is_click=False, mouse_pos=event.pos)
+                is_click = False
 
     # Получение позиции курсора мыши для обновления состояния кнопки
-    mouse_pos = pygame.mouse.get_pos()
-    button.update(is_click=False, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
-
+    button.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
 
     # Отрисовка
     screen.fill((0, 0, 0))  # Заливка фона

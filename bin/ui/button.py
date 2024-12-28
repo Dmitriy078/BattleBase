@@ -1,4 +1,6 @@
-from resources.text import Text
+import pygame.transform
+
+from bin.ui.text import Text
 
 
 # Класс кнопки
@@ -9,8 +11,8 @@ class Button(Text):
                  audio_player):
         super().__init__(texture, text, x, y, width, height, text_color_rgb, font, font_size, center_text, offset_text_x, offset_text_y)
         self.is_pressed = False
-        self.image = texture
-        self.image_press = texture_press
+        self.image = pygame.transform.scale(texture, (width, height))
+        self.image_press = pygame.transform.scale(texture_press, (width, height))
         self.offset_text_x = offset_text_x
         self.offset_text_y = offset_text_y
         self.offset_text_press_x = offset_text_press_x

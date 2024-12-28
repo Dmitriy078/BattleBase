@@ -1,9 +1,15 @@
-import os
+from pygame_widgets.button import Button
 import pygame
-from PIL.ImageChops import screen
-from pygame_widgets.button import ButtonArray, Button
-from pygame.locals import *
-import pygame_widgets
+from bin.ui.button import Button
+
+
+class AudioPlayer:
+    def play_sound(self, sound_name):
+        # Здесь можно добавить код для воспроизведения звука
+        print(f"Звук '{sound_name}' воспроизведён.")
+
+
+audio_player = AudioPlayer()
 
 
 class MainMenu:
@@ -19,66 +25,99 @@ class MainMenu:
         self.size = self.width, self.height = self.settings.resolution
         self.screen = screen
         self.running = True
-        self.but_play = Button(
-            # Mandatory Parameters
-            screen,  # Surface to place button on
-            200,  # X-coordinate of top left corner
-            290,  # Y-coordinate of top left corner
-            100,  # Width
-            100,  # Height
+        # Загрузка изображений для кнопки
+        button_texture = pygame.image.load("resources/buttons/Button_Blue_3Slides.png")  # Основная текстура
+        button_texture_press = pygame.image.load(
+            "resources/buttons/Button_Blue_3Slides_Pressed.png")  # Текстура при нажатии
 
-            # Optional Parameters
-            text='Play',  # Text to display
-            fontSize=20,  # Size of font
-            margin=20,  # Minimum distance between text/image and edge of button
-            inactiveColour=(172, 183, 142),  # Colour of button when not being interacted with
-            hoverColour=(184, 183, 153),  # Colour of button when being hovered over
-            pressedColour=(0, 200, 20),  # Colour of button when being clicked
-            radius=20,  # Radius of border corners (leave empty for not curved)
-            onClick=lambda: self.but_play.setText('Clicked!')  # Function to call when clicked on
+        # Создание шрифта
+        font = 'Arial'
+        self.but_play = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='play',
+            x=310,
+            y=295,
+            width=170,
+            height=70,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=30,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=audio_player
         )
         self.but_settings = Button(
-            # Mandatory Parameters
-            screen,  # Surface to place button on
-            200,  # X-coordinate of top left corner
-            450,  # Y-coordinate of top left corner
-            100,  # Width
-            100,  # Height
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='settings',
+            x=310,
+            y=365,
+            width=170,
+            height=70,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=30,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=audio_player
+        )
 
-            # Optional Parameters
-            text='Settings',  # Text to display
-            fontSize=20,  # Size of font
-            margin=20,  # Minimum distance between text/image and edge of button
-            inactiveColour=(172, 183, 142),  # Colour of button when not being interacted with
-            hoverColour=(184, 183, 153),  # Colour of button when being hovered over
-            pressedColour=(0, 200, 20),  # Colour of button when being clicked
-            radius=20,  # Radius of border corners (leave empty for not curved)
-            onClick=lambda: self.but_play.setText('Clicked!') # Function to call when clicked on
+        self.but_exit = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='exit',
+            x=310,
+            y=435,
+            width=170,
+            height=70,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=30,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=audio_player
         )
 
     def show_menu(self):
         clock = pygame.time.Clock()
         time = 0
         right = False
-
-
+        is_click = False
         while self.running:
-            events = pygame.event.get()
+            mouse_pos = pygame.mouse.get_pos()
             self.screen.blit(self.frames[self.frame_current], (0, 0))
-            self.but_play.draw()
-            self.but_settings.draw()
-            MENU_M0USE_POS = pygame.mouse.get_pos()
+            self.but_play.draw(self.screen)
 
-            for event in events:
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
-                # if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    is_click = True
+                if event.type == pygame.MOUSEBUTTONUP:
+                    is_click = False
                 #     self.but_play.setText('Clicked!')  # Обновляем текст кнопки
 
-            pygame_widgets.update(events)  # ОБЯЗАТЕЛЬНО для обновления виджетов
+            # pygame_widgets.update(events)  # ОБЯЗАТЕЛЬНО для обновления виджетов
+            self.but_play.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.but_play.draw(self.screen)  # Отрисовка кнопки
+            self.but_settings.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.but_settings.draw(self.screen)  # Отрисовка кнопки
+            self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.but_exit.draw(self.screen)  # Отрисовка кнопки
+
             pygame.display.update()
 
             clock.tick(self.settings.fps)
@@ -97,4 +136,3 @@ class MainMenu:
                     self.frame_current = len(self.frames) - 1
                     right = True
                 time = 0
-
