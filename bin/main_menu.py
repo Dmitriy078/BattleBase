@@ -1,6 +1,7 @@
 import pygame
 
 from bin.game_process import GameProcess
+from bin.settings import Settings
 from bin.show_settings import SettingsShow
 from bin.ui.button import Button
 
@@ -138,8 +139,9 @@ class MainMenu:
         self.running = False
 
     def open_game(self):
-        game = GameProcess(self.settings, self.registry, self.audio, self.screen)
+        game = GameProcess(self.settings, self.audio, self.screen)
         game.game()
     def run_settings(self):
-        set_show = SettingsShow(self.settings, self.registry, self.audio, self.screen)
+        s = Settings()
+        set_show = SettingsShow(self.settings, s.resolution, self.audio, self.screen)
         set_show.set_display()

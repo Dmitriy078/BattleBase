@@ -1,8 +1,8 @@
 import pygame
 class SettingsShow:
-    def __init__(self, settings, registry, audio, screen):
+    def __init__(self, settings, resolution, audio, screen):
         self.settings = settings
-        self.registry = registry
+        self.resolution = resolution
         self.audio = audio
         self.is_reboot = False
         self.size = self.width, self.height = self.settings.resolution
@@ -21,4 +21,9 @@ class SettingsShow:
                         self.running = False
             pygame.display.flip()
             self.clock.tick(60)
+        file = "../resources/settings_image/workshop.png"
+        frame = pygame.image.load(file).convert()
+        frame = pygame.transform.scale(frame, self.resolution)
+
+
 
