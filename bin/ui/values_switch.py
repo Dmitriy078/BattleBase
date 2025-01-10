@@ -1,5 +1,5 @@
-from source.ui.text import Text
-from source.ui.button import Button
+from bin.ui.text import Text
+from bin.ui.button import Button
 
 
 # Класс переключателя значения для большого количества
@@ -8,7 +8,7 @@ class ValuesSwitch:
     def __init__(self, texture, values, select_value, x, y, width, height, font, font_size, center_text,
                  offset_text_x,
                  offset_text_y,
-                 texture_button, texture_button_motion, texture_button_press, offset_text_press_x, offset_text_press_y,
+                 texture_button, texture_button_press, offset_text_press_x, offset_text_press_y,
                  audio_player):
         self.values = values
         if select_value in self.values:
@@ -36,7 +36,6 @@ class ValuesSwitch:
                                offset_text_y=offset_text_y)
 
         self.button_left = Button(texture=texture_button,
-                                  texture_motion=texture_button_motion,
                                   texture_press=texture_button_press,
                                   text='<=',
                                   x=(x - texture_button.get_width() - (texture_button.get_width() * 0.1)),
@@ -53,7 +52,6 @@ class ValuesSwitch:
                                   audio_player=audio_player)
 
         self.button_right = Button(texture=texture_button,
-                                   texture_motion=texture_button_motion,
                                    texture_press=texture_button_press,
                                    text='=>',
                                    x=(x + texture.get_width() + (texture_button.get_width() * 0.1)),

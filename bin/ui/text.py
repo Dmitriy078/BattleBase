@@ -13,7 +13,7 @@ class Text:
         self.text_color = text_color_rgb
         self.image = texture
         self.font_size = font_size
-        self.font = pygame.font.SysFont(font, font_size)
+        self.font = font
         self.rect = pygame.Rect(x, y, width, height)
         self.offset_text_x = offset_text_x
         self.offset_text_y = offset_text_y

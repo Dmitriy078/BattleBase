@@ -1,10 +1,10 @@
-from source.ui.button import Button
+from bin.ui.button import Button
 
 
 # Класс переключателя значения для маленького количества
 class ValueSwitch:
     # Инициализация параметров
-    def __init__(self, texture, texture_motion, texture_press, values, select_value, x, y, width, height, font,
+    def __init__(self, texture, texture_press, values, select_value, x, y, width, height, font,
                  font_size, center_text, offset_text_x, offset_text_y, offset_text_press_x, offset_text_press_y,
                  audio_player):
         self.values = values
@@ -21,13 +21,14 @@ class ValueSwitch:
             text = 'Не указано'
 
         self.value_text = Button(texture=texture,
-                                 texture_motion=texture_motion,
                                  texture_press=texture_press,
                                  text=text,
                                  x=x,
                                  y=y,
                                  width=width,
                                  height=height,
+                                 text_color_rgb=(122, 122, 122),
+
                                  font=font,
                                  font_size=font_size,
                                  center_text=center_text,

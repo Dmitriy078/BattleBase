@@ -27,7 +27,10 @@ class MainMenu:
             "resources/buttons/Button_Blue_3Slides_Pressed.png")  # Текстура при нажатии
 
         # Создание шрифта
-        font = 'Arial'
+        font = "Arial"
+        # "resources\fonts\EpilepsySans.ttf"
+        # "resources\fonts\EpilepsySansBold.ttf"
+        font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
         self.but_play = Button(
             texture=button_texture,
             texture_press=button_texture_press,
@@ -38,7 +41,7 @@ class MainMenu:
             height=70,
             text_color_rgb=(120, 100, 40),
             font=font,
-            font_size=30,
+            font_size=18,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -58,7 +61,7 @@ class MainMenu:
             height=70,
             text_color_rgb=(120, 100, 40),
             font=font,
-            font_size=30,
+            font_size=48,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -77,7 +80,7 @@ class MainMenu:
             height=70,
             text_color_rgb=(120, 100, 40),
             font=font,
-            font_size=30,
+            font_size=48,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -88,6 +91,7 @@ class MainMenu:
         self.but_exit.call = self.exit_game
 
     def show_menu(self):
+
         clock = pygame.time.Clock()
         time = 0
         right = False
@@ -139,7 +143,7 @@ class MainMenu:
         self.running = False
 
     def open_game(self):
-        game = GameProcess(self.settings, self.audio, self.screen)
+        game = GameProcess(self.settings, self.registry, self.audio, self.screen)
         game.game()
     def run_settings(self):
         s = Settings()

@@ -1,4 +1,8 @@
 import pygame
+from bin.ui.button import Button
+from bin.ui.value_switch import ValueSwitch
+
+
 class SettingsShow:
     def __init__(self, settings, resolution, audio, screen):
         self.settings = settings
@@ -9,21 +13,100 @@ class SettingsShow:
         self.screen = screen
         self.running = True
         self.clock = pygame.time.Clock()
+        file = "resources/settings_image/workshop.png"
+        self.but_apply_first = pygame.image.load("resources/buttons/Button_Blue_3Slides.png")  # Основная текстура
+        self.but_apply_press = pygame.image.load(
+            "resources/buttons/Button_Blue_3Slides_Pressed.png")  # Текстура при нажатии
+        self.but_exit_first = pygame.image.load("resources/buttons/Button_Blue.png")  # Основная текстура
+        self.but_exit_press = pygame.image.load(
+            "resources/buttons/Button_Blue_Pressed.png")
+        font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
+        self.switch = ValueSwitch(
+            texture=self.but_exit_first,
+            texture_press=self.but_exit_press,
+            x=320,
+            y=465,
+            values=[1, 2, 3],
+            select_value = 1,
+            width=170,
+            height=90,
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_exit = Button(
+            texture=self.but_exit_first,
+            texture_press=self.but_exit_press,
+            text='exit',
+            x=320,
+            y=465,
+            width=170,
+            height=90,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_apply = Button(
+            texture=self.but_apply_first,
+            texture_press=self.but_apply_press,
+            text='apply',
+            x=310,
+            y=355,
+            width=190,
+            height=90,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.frame = pygame.image.load(file)
+        self.frame = pygame.transform.scale(self.frame, self.resolution)
+        self.but_exit.call = self.exit_settings
+
 
     def set_display(self):
+        is_click = False
         while self.running:
-            self.screen.fill('white')
+            # self.screen.fill('white')
+            self.screen.blit(self.frame, (0, 0))
+            mouse_pos = pygame.mouse.get_pos()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    is_click = True
+                if event.type == pygame.MOUSEBUTTONUP:
+                    is_click = False
+            self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.but_exit.draw(self.screen)
+            self.but_apply.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.switch.draw(self.screen)
+            # self.switch.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.but_apply.draw(self.screen)
             pygame.display.flip()
             self.clock.tick(60)
-        file = "../resources/settings_image/workshop.png"
-        frame = pygame.image.load(file).convert()
-        frame = pygame.transform.scale(frame, self.resolution)
+    def exit_settings(self):
+        self.running  = False
 
 
 
