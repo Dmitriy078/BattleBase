@@ -1,6 +1,5 @@
 import pygame
 import ctypes
-
 from bin.audio import AudioManager
 from bin.settings import Settings
 from bin.registry import Registry

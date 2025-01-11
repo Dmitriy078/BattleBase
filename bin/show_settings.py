@@ -25,9 +25,9 @@ class SettingsShow:
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
             x=320,
-            y=465,
-            values=[1, 2, 3],
-            select_value = 1,
+            y=245,
+            values=['1', '2', '3'],
+            select_value = '1',
             width=170,
             height=90,
             font=font,
@@ -100,8 +100,8 @@ class SettingsShow:
             self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_exit.draw(self.screen)
             self.but_apply.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
-            # self.switch.draw(self.screen)
-            # self.switch.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            self.switch.draw(self.screen)
+            self.switch.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_apply.draw(self.screen)
             pygame.display.flip()
             self.clock.tick(60)

@@ -37,7 +37,7 @@ class ValueSwitch:
                                  offset_text_press_x=offset_text_press_x,
                                  offset_text_press_y=offset_text_press_y,
                                  audio_player=audio_player)
-        self.is_motion = False
+        self.value_text.call = self.click
 
     # Отрисовка переключателя
     def draw(self, screen):
@@ -46,16 +46,15 @@ class ValueSwitch:
     # Обновление значения
     def update(self, is_click, mouse_pos):
         self.value_text.update(is_click, mouse_pos)
-        self.is_motion = self.value_text.is_motion
-        if self.value_text.is_up or self.value_text.call:
-            self.value_text.call = False
-            if self.pos_value > -1:
-                self.pos_value += 1
-            if self.pos_value >= len(self.values):
-                self.pos_value = 0
 
         if self.pos_value > -1:
             self.value_text.set_text(self.get_value())
+
+    def click(self):
+        if self.pos_value > -1:
+            self.pos_value += 1
+        if self.pos_value >= len(self.values):
+            self.pos_value = 0
 
     # Получение значения
     def get_value(self):
