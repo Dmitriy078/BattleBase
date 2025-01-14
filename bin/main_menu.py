@@ -91,7 +91,6 @@ class MainMenu:
         self.but_exit.call = self.exit_game
 
     def show_menu(self):
-
         clock = pygame.time.Clock()
         time = 0
         right = False
@@ -145,6 +144,7 @@ class MainMenu:
     def open_game(self):
         game = GameProcess(self.settings, self.registry, self.audio, self.screen)
         game.game()
+
     def run_settings(self):
         s = Settings()
         set_show = SettingsShow(self.settings, s.resolution, self.audio, self.screen)

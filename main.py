@@ -13,8 +13,11 @@ def start_game():
     pygame.display.set_caption('BattleBase')
 
     settings = Settings()
-    screen = pygame.display.set_mode(settings.resolution)
-    registry = Registry(settings.resolution)
+    if settings.full_screen_mode:
+        screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN, display=0)
+    else:
+        screen = pygame.display.set_mode(settings.resolution, display=0)
+    registry = Registry(settings.resolution, settings)
     audio = AudioManager()
     main_menu = MainMenu(settings, registry, audio, screen)
     main_menu.show_menu()
