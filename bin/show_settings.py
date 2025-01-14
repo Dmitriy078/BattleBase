@@ -1,6 +1,8 @@
 import pygame
 from bin.ui.button import Button
+from bin.ui.toggle_but import ButtonToggle
 from bin.ui.value_switch import ValueSwitch
+from bin.ui.text import Text
 
 
 class SettingsShow:
@@ -21,12 +23,13 @@ class SettingsShow:
         self.but_exit_press = pygame.image.load(
             "resources/buttons/Button_Blue_Pressed.png")
         font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
+
         self.switch = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=320,
-            y=245,
-            values=['1', '2', '3'],
+            x=590,
+            y=305,
+            values=[str(i) for i in range(100)],
             select_value = '1',
             width=170,
             height=90,
@@ -75,6 +78,55 @@ class SettingsShow:
             offset_text_press_y=2,
             audio_player=self.audio
         )
+        self.full_screen_text = Text(
+    texture=None,  # У нас нет текстуры для текста
+    text='full-screen mode',
+    x=244,  # Центрируем текст
+    y=132,
+    width=300,
+    height=100,
+    text_color_rgb= (138, 9, 47),
+    font=font,
+    font_size=50,
+    center_text=True,
+    offset_text_x=0,
+    offset_text_y=0)
+        self.but_on = ButtonToggle(
+            texture=self.but_apply_first,
+            texture_press=self.but_apply_press,
+            text='turn on',
+            x=385,
+            y=200,
+            width=190,
+            height=90,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_off = ButtonToggle(
+            texture=self.but_apply_first,
+            texture_press=self.but_apply_press,
+            text='turn off',
+            x=195,
+            y=200,
+            width=190,
+            height=90,
+            text_color_rgb=(120, 100, 40),
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
         self.frame = pygame.image.load(file)
         self.frame = pygame.transform.scale(self.frame, self.resolution)
         self.but_exit.call = self.exit_settings
@@ -102,7 +154,11 @@ class SettingsShow:
             self.but_apply.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.switch.draw(self.screen)
             self.switch.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
-            self.but_apply.draw(self.screen)
+            self.but_off.draw(self.screen)
+            self.but_off.update(is_click=is_click, mouse_pos=mouse_pos)
+            self.but_on.draw(self.screen)
+            self.but_on.update(is_click=is_click, mouse_pos=mouse_pos)
+            self.full_screen_text.draw(self.screen)
             pygame.display.flip()
             self.clock.tick(60)
     def exit_settings(self):
