@@ -27,7 +27,7 @@ class ValueSwitch:
                                  y=y,
                                  width=width,
                                  height=height,
-                                 text_color_rgb=(122, 122, 122),
+                                 text_color_rgb=(138, 9, 47),
 
                                  font=font,
                                  font_size=font_size,

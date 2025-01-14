@@ -24,13 +24,31 @@ class SettingsShow:
             "resources/buttons/Button_Blue_Pressed.png")
         font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
 
-        self.switch = ValueSwitch(
+        self.switch_volume = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
             x=590,
             y=305,
             values=[str(i) for i in range(100)],
-            select_value = '1',
+            select_value='1',
+            width=170,
+            height=90,
+            font=font,
+            font_size=18,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.switch_rate = ValueSwitch(
+            texture=self.but_exit_first,
+            texture_press=self.but_exit_press,
+            x=60,
+            y=305,
+            values=[str(i) for i in range(100)],
+            select_value='1',
             width=170,
             height=90,
             font=font,
@@ -50,7 +68,7 @@ class SettingsShow:
             y=465,
             width=170,
             height=90,
-            text_color_rgb=(120, 100, 40),
+            text_color_rgb=(138, 9, 47),
             font=font,
             font_size=18,
             center_text=True,
@@ -68,7 +86,7 @@ class SettingsShow:
             y=355,
             width=190,
             height=90,
-            text_color_rgb=(120, 100, 40),
+            text_color_rgb=(138, 9, 47),
             font=font,
             font_size=18,
             center_text=True,
@@ -79,27 +97,53 @@ class SettingsShow:
             audio_player=self.audio
         )
         self.full_screen_text = Text(
-    texture=None,  # У нас нет текстуры для текста
-    text='full-screen mode',
-    x=244,  # Центрируем текст
-    y=132,
-    width=300,
-    height=100,
-    text_color_rgb= (138, 9, 47),
-    font=font,
-    font_size=50,
-    center_text=True,
-    offset_text_x=0,
-    offset_text_y=0)
+            texture=None,  # У нас нет текстуры для текста
+            text='full-screen mode',
+            x=244,  # Центрируем текст
+            y=132,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=50,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
+        self.overall_volume_text = Text(
+            texture=None,  # У нас нет текстуры для текста
+            text='Overall volume',
+            x=524,  # Центрируем текст
+            y=232,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=50,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
+        self.frame_rate_text = Text(
+            texture=None,  # У нас нет текстуры для текста
+            text='Frame rate',
+            x=4,  # Центрируем текст
+            y=232,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=50,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
         self.but_on = ButtonToggle(
             texture=self.but_apply_first,
             texture_press=self.but_apply_press,
             text='turn on',
-            x=385,
+            x=405,
             y=200,
-            width=190,
+            width=150,
             height=90,
-            text_color_rgb=(120, 100, 40),
+            text_color_rgb=(138, 9, 47),
             font=font,
             font_size=18,
             center_text=True,
@@ -113,11 +157,11 @@ class SettingsShow:
             texture=self.but_apply_first,
             texture_press=self.but_apply_press,
             text='turn off',
-            x=195,
+            x=215,
             y=200,
-            width=190,
+            width=150,
             height=90,
-            text_color_rgb=(120, 100, 40),
+            text_color_rgb=(138, 9, 47),
             font=font,
             font_size=18,
             center_text=True,
@@ -130,7 +174,6 @@ class SettingsShow:
         self.frame = pygame.image.load(file)
         self.frame = pygame.transform.scale(self.frame, self.resolution)
         self.but_exit.call = self.exit_settings
-
 
     def set_display(self):
         is_click = False
@@ -151,18 +194,28 @@ class SettingsShow:
                     is_click = False
             self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_exit.draw(self.screen)
+
+            self.but_apply.draw(self.screen)
             self.but_apply.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
-            self.switch.draw(self.screen)
-            self.switch.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+
+            self.switch_volume.draw(self.screen)
+            self.switch_volume.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+
+            self.switch_rate.draw(self.screen)
+            self.switch_rate.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+
             self.but_off.draw(self.screen)
             self.but_off.update(is_click=is_click, mouse_pos=mouse_pos)
+
             self.but_on.draw(self.screen)
             self.but_on.update(is_click=is_click, mouse_pos=mouse_pos)
+
             self.full_screen_text.draw(self.screen)
+            self.overall_volume_text.draw(self.screen)
+            self.frame_rate_text.draw(self.screen)
+
             pygame.display.flip()
             self.clock.tick(60)
+
     def exit_settings(self):
-        self.running  = False
-
-
-
+        self.running = False
