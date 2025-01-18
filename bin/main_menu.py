@@ -2,7 +2,7 @@ import pygame
 
 from bin.game_process import GameProcess
 from bin.settings import Settings
-from bin.show_settings import SettingsShow
+from bin.settings_menu import SettingsMenu
 from bin.ui.button import Button
 
 
@@ -16,7 +16,6 @@ class MainMenu:
         self.frames = self.registry.bg_main_menu
         self.frame_current = 0
         self.time = 0
-        self.is_reboot = False
 
         self.size = self.width, self.height = self.settings.resolution
         self.screen = screen
@@ -95,7 +94,7 @@ class MainMenu:
         time = 0
         right = False
         is_click = False
-        while self.running:
+        while self.running and not self.settings.reboot:
             mouse_pos = pygame.mouse.get_pos()
             self.screen.blit(self.frames[self.frame_current], (0, 0))
             self.but_play.draw(self.screen)
@@ -147,5 +146,5 @@ class MainMenu:
 
     def run_settings(self):
         s = Settings()
-        set_show = SettingsShow(self.settings, s.resolution, self.audio, self.screen)
+        set_show = SettingsMenu(self.settings, s.resolution, self.audio, self.screen)
         set_show.set_display()
