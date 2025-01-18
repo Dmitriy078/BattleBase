@@ -1,5 +1,6 @@
 import pygame
 
+from bin.camera import Camera
 from bin.characters.archer import Archer
 
 CELL_SIZE = 50
@@ -20,7 +21,34 @@ class GameProcess:
                              (self.settings.w // 2, self.settings.h // 2))
         self.all_characters.add(self.player)
 
+        bot = Archer(self.registry, self.settings, 'archer_blue',
+                             (self.settings.w // 2 + 50, self.settings.h // 2))
+        self.all_characters.add(bot)
+
+    def control_player(self, key_pressed_is):
+        if key_pressed_is[pygame.K_a]:
+            self.player.control['left'] = True
+            self.player.control['right'] = False
+        elif key_pressed_is[pygame.K_d]:
+            self.player.control['left'] = False
+            self.player.control['right'] = True
+        else:
+            self.player.control['left'] = False
+            self.player.control['right'] = False
+
+        if key_pressed_is[pygame.K_w]:
+            self.player.control['up'] = True
+            self.player.control['down'] = False
+        elif key_pressed_is[pygame.K_s]:
+            self.player.control['up'] = False
+            self.player.control['down'] = True
+        else:
+            self.player.control['up'] = False
+            self.player.control['down'] = False
+
+
     def game(self):
+        camera = Camera(self.settings)
         while self.running:
             # Обработка событий
             for event in pygame.event.get():
@@ -33,15 +61,11 @@ class GameProcess:
 
             # Обновления
             self.all_characters.update()
-
-            if key_pressed_is[pygame.K_a]:
-                self.player.direction = 'left'
-                self.player.status = 'walk'
-            elif key_pressed_is[pygame.K_d]:
-                self.player.direction = 'right'
-                self.player.status = 'walk'
-            else:
-                self.player.status = 'idle'
+            if self.player:
+                self.control_player(key_pressed_is)
+                camera.update(self.player)
+            for sprite in self.all_characters:
+                camera.apply(sprite)
 
             # Отрисовка
             self.screen.fill('white')
