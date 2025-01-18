@@ -20,10 +20,9 @@ class Arrow(pygame.sprite.Sprite):
         self.x, self.y = pos
         self.target_point = target_point
 
-        self.speed = settings.fps // 5 * (settings.w // 800)
         # Определяем угол
-        self.direction_x = self.target_point[0] - self.x
-        self.direction_y = self.target_point[1] - self.y
+        self.direction_x = self.target_point[0] - self.x + self.rect.width / 2
+        self.direction_y = self.target_point[1] - self.y + self.rect.height / 2
 
         # Нормализуем вектор
         length = math.hypot(self.direction_x, self.direction_y)
@@ -32,17 +31,18 @@ class Arrow(pygame.sprite.Sprite):
             self.direction_y /= length
 
         # Умножаем на скорость
-        self.direction_x *= self.speed
-        self.direction_y *= self.speed
+        self.direction_x *= self.speed_x
+        self.direction_y *= self.speed_y
 
         # Вычисляем угол для поворота изображения
         angle = math.degrees(math.atan2(-self.direction_y, self.direction_x))
         self.image = pygame.transform.rotate(self.original_image, angle)
         self.rect = self.image.get_rect(center=self.rect.center)
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
         self.time += 1
-        if self.time > self.time_health:
+        if self.time > self.time_health or math.hypot(self.target_point[0] - self.x, self.target_point[1] - self.y) < 20:
             self.kill()
             return
         else:
