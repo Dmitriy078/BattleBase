@@ -26,10 +26,13 @@ class Character(pygame.sprite.Sprite):
             'up': False,
             'down': False,
             'left': False,
-            'right': False
+            'right': False,
+            'attack': False
         }
 
-    def update(self):
+        self.bullet = None
+
+    def update(self, mouse_pos, all_bullets):
         self.time += 1
 
         if self.time >= self.res.textures[self.name][self.direction][self.status]['t_change']:
@@ -41,6 +44,10 @@ class Character(pygame.sprite.Sprite):
                 if self.status == 'dead':
                     self.is_destroy = True
                     self.kill()
+                elif self.status == 'attack':
+                    self.status = 'idle'
+                    self.time = 0
+                    self.current_frame = 0
                 else:
                     self.current_frame = 0
 
@@ -50,21 +57,30 @@ class Character(pygame.sprite.Sprite):
         if self.health > 0:
             if self.control['up']:
                 self.y -= self.speed_y
-                self.status = 'walk'
+                if self.status != 'attack':
+                    self.status = 'walk'
             elif self.control['down']:
                 self.y += self.speed_y
-                self.status = 'walk'
+                if self.status != 'attack':
+                    self.status = 'walk'
 
             if self.control['left']:
                 self.x -= self.speed_x
                 self.direction = 'left'
-                self.status = 'walk'
+                if self.status != 'attack':
+                    self.status = 'walk'
             elif self.control['right']:
                 self.x += self.speed_x
                 self.direction = 'right'
-                self.status = 'walk'
+                if self.status != 'attack':
+                    self.status = 'walk'
 
-            if not self.control['up'] and not self.control['down'] and not self.control['left'] and not self.control['right']:
+            if self.control['attack']:
+                if self.status != 'attack':
+                    self.status = 'attack'
+                    self.time = 0
+            elif (not self.control['up'] and not self.control['down'] and not self.control['left'] and
+                  not self.control['right'] and not self.status == 'attack'):
                 self.status = 'idle'
         else:
             self.status = 'dead'

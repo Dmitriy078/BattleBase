@@ -13,9 +13,11 @@ class Registry:
 
         self.bg_main_menu = []
         self.textures = dict()
+        self.t_bullets = dict()
 
         self.load_textures_background_main_menu()
         self.load_textures_characters()
+        self.load_textures_bullets()
 
     def load_textures_background_main_menu(self):
         self.bg_main_menu.clear()
@@ -49,7 +51,7 @@ class Registry:
                     't_change': self.settings.fps // 12
                 },
                 'attack': {
-                    'frames': self.horisontal_invert(frames[24:32]),
+                    'frames': self.horisontal_invert(frames[32:40]),
                     't_change': self.settings.fps // 12
                 },
                 'dead': {
@@ -67,7 +69,7 @@ class Registry:
                     't_change': self.settings.fps // 12
                 },
                 'attack': {
-                    'frames': frames[24:32],
+                    'frames': frames[32:40],
                     't_change': self.settings.fps // 12
                 },
                 'dead': {
@@ -76,6 +78,11 @@ class Registry:
                 }
             }
         }
+
+    # Функция для загрузки снарядов
+    def load_textures_bullets(self):
+        self.t_bullets['arrow'] = pygame.transform.scale(self.load_image('bullets/arrow.png', True),
+                                                     self.settings.arrow_size)
 
     # Функция для загрузки изображения
     def load_image(self, name, alpha=False):

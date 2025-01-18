@@ -5,6 +5,7 @@ class Settings:
         self.w, self.h = self.resolution
         self.fps = 60
         self.cell_size = (self.resolution[0] // 12.5, self.resolution[1] // 9.375)
+        self.arrow_size = (self.resolution[0] // 15, self.resolution[1] // 15)
         self.load_settings()
 
     def load_settings(self):
