@@ -18,13 +18,15 @@ class GameProcess:
 
         self.all_bullets_blue = pygame.sprite.Group()
         self.all_characters_blue = pygame.sprite.Group()
-        self.player = Archer(self.registry, self.settings, 'archer_blue',
+        self.player = Archer(self.registry, self.settings, self.audio, 'archer_blue',
                              (self.settings.w // 2, self.settings.h // 2))
         self.all_characters_blue.add(self.player)
 
-        bot = Archer(self.registry, self.settings, 'archer_blue',
+        self.all_bullets_red = pygame.sprite.Group()
+        self.all_characters_red = pygame.sprite.Group()
+        bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
                              (self.settings.w // 2 + 50, self.settings.h // 2))
-        self.all_characters_blue.add(bot)
+        self.all_characters_red.add(bot)
 
     def control_player(self, key_pressed_is):
         if key_pressed_is[pygame.K_a]:
@@ -68,20 +70,28 @@ class GameProcess:
             mouse_pos = pygame.mouse.get_pos()
 
             # Обновления
-            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue)
-            self.all_bullets_blue.update()
+            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera)
+            self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera)
+            self.all_bullets_blue.update(self.all_characters_red)
+            self.all_bullets_red.update(self.all_characters_blue)
             if self.player:
                 self.control_player(key_pressed_is)
                 camera.update(self.player)
             for sprite in self.all_characters_blue:
                 camera.apply(sprite)
+            for sprite in self.all_characters_red:
+                camera.apply(sprite)
             for sprite in self.all_bullets_blue:
+                camera.apply(sprite)
+            for sprite in self.all_bullets_red:
                 camera.apply(sprite)
 
             # Отрисовка
             self.screen.fill('white')
             self.all_characters_blue.draw(self.screen)
+            self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
+            self.all_bullets_red.draw(self.screen)
 
             # Отображение
             pygame.display.flip()

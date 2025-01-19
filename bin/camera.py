@@ -7,8 +7,8 @@ class Camera:
 
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
+        obj.x += self.dx
+        obj.y += self.dy
 
     # позиционировать камеру на объекте target
     def update(self, target):

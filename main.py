@@ -14,9 +14,9 @@ def start_game():
 
     settings = Settings()
     if settings.full_screen_mode:
-        screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN, display=1)
+        screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN, display=settings.display)
     else:
-        screen = pygame.display.set_mode(settings.resolution, display=1)
+        screen = pygame.display.set_mode(settings.resolution, display=settings.display)
     registry = Registry(settings.resolution, settings)
     audio = AudioManager()
     main_menu = MainMenu(settings, registry, audio, screen)

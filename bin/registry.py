@@ -36,48 +36,52 @@ class Registry:
             self.bg_main_menu.append(frame)
 
     def load_textures_characters(self):
-        dead_frames = self.load_image('characters/dead.png', True)
-        dead_frames = self.cut_sheet(dead_frames, 7, 2)
-        frames = self.load_image('characters/archer_blue.png', True)
-        frames = self.cut_sheet(frames, 8, 7)
-        self.textures['archer_blue'] = {
-            'left': {
-                'idle': {
-                    'frames': self.horisontal_invert(frames[0:6]),
-                    't_change': self.settings.fps // 12
+        for i in ('archer_blue', 'archer_red'):
+            dead_frames = self.load_image('characters/dead.png', True)
+            dead_frames = self.cut_sheet(dead_frames, 7, 2)
+            frames = self.load_image(f'characters/{i}.png', True)
+            frames = self.cut_sheet(frames, 8, 7)
+
+            self.textures[i] = {
+                'left': {
+                    'idle': {
+                        'frames': self.horisontal_invert(frames[0:6]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': self.horisontal_invert(frames[8:14]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': self.horisontal_invert(frames[32:40]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': self.horisontal_invert(dead_frames),
+                        't_change': self.settings.fps // 10
+                    }
                 },
-                'walk': {
-                    'frames': self.horisontal_invert(frames[8:14]),
-                    't_change': self.settings.fps // 12
-                },
-                'attack': {
-                    'frames': self.horisontal_invert(frames[32:40]),
-                    't_change': self.settings.fps // 12
-                },
-                'dead': {
-                    'frames': self.horisontal_invert(dead_frames),
-                    't_change': self.settings.fps // 6
-                }
-            },
-            'right':{
-                'idle': {
-                    'frames': frames[0:6],
-                    't_change': self.settings.fps // 12
-                },
-                'walk': {
-                    'frames': frames[8:14],
-                    't_change': self.settings.fps // 12
-                },
-                'attack': {
-                    'frames': frames[32:40],
-                    't_change': self.settings.fps // 12
-                },
-                'dead': {
-                    'frames': dead_frames,
-                    't_change': self.settings.fps // 6
+                'right':{
+                    'idle': {
+                        'frames': frames[0:6],
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': frames[8:14],
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': frames[32:40],
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': dead_frames,
+                        't_change': self.settings.fps // 10
+                    }
                 }
             }
-        }
+
+        # тут загружаем остальных
 
     # Функция для загрузки снарядов
     def load_textures_bullets(self):
