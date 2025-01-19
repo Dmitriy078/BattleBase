@@ -34,7 +34,7 @@ class SettingsMenu:
             width=self.settings.w * 0.2,
             height=self.settings.h * 0.1,
             font=font,
-            font_size=self.settings.font,
+            font_size=16,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -210,8 +210,8 @@ class SettingsMenu:
             self.settings.full_screen_mode = True
         else:
             self.settings.full_screen_mode = False
+        print(self.settings.full_screen_mode)
         self.settings.reboot = True
-        # self.settings.full_screen_mode
         self.settings.save_settings()
 
     def exit_settings(self):

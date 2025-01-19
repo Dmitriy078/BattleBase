@@ -1,15 +1,28 @@
+import os.path
+
+import pygame.display
+
+
 class Settings:
     def __init__(self):
+        self.display = 0
+        self.resolutions = pygame.display.list_modes(display=self.display)
         self.full_screen_mode = False
-        self.resolution = (800, 600)
+        if (1600, 900) in self.resolutions:
+            self.resolution = (1600, 900)
+        else:
+            self.resolution = self.resolutions[0]
         self.w, self.h = self.resolution
         self.fps = 60
         self.cell_size = (self.resolution[0] // 12.5, self.resolution[1] // 9.375)
-        self.arrow_size = (self.resolution[0] // 15, self.resolution[1] // 15)
-        self.display = 0
+        self.arrow_size = (self.resolution[0] // 30, self.resolution[1] // 22.5)
+        self.reboot = False
         self.load_settings()
 
     def load_settings(self):
+        if not os.path.exists('data/settings.csv'):
+            self.save_settings()
+
         with open("data/settings.csv", encoding="utf-8") as file:
             strings = file.readlines()
 
@@ -20,18 +33,22 @@ class Settings:
                     self.resolution = tuple(map(int, value.split(',')))
                     self.w, self.h = self.resolution
                     self.cell_size = (self.resolution[0] // 12.5, self.resolution[1] // 9.375)
+                    self.arrow_size = (self.resolution[0] // 30, self.resolution[1] // 22.5)
                 elif key == "fps":
                     self.fps = int(value)
                 elif key == "full_screen_mode":
-                    print(key, value, True if value == 'True' else False)
                     if value == 'True':
                         self.full_screen_mode = True
                     else:
                         self.full_screen_mode = False
 
     def save_settings(self,):
+        if not os.path.exists("data"):
+            os.mkdir('data')
+
         with open("data/settings.csv", 'w', encoding="utf-8") as file:
             data = f'''name_parameter;value
 full_screen_mode;{self.full_screen_mode}
 resolution;{self.w},{self.h}
 fps;{self.fps}'''
+            file.write(data)
