@@ -63,9 +63,7 @@ class Arrow(pygame.sprite.Sprite):
 
     def update(self, enemy):
         for e in enemy:
-            print(e.rect.x, self.x, e.rect.y, self.x)
             if pygame.sprite.collide_mask(self, e):
-                print('Попадание')
                 e.get_damage(self.damage)
                 self.destroy()
                 self.time = self.time_health
