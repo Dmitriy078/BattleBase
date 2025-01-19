@@ -14,14 +14,14 @@ def start_game():
 
     settings = Settings()
     if settings.full_screen_mode:
-        screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN, display=0)
+        screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN, display=1)
     else:
-        screen = pygame.display.set_mode(settings.resolution, display=0)
+        screen = pygame.display.set_mode(settings.resolution, display=1)
     registry = Registry(settings.resolution, settings)
     audio = AudioManager()
     main_menu = MainMenu(settings, registry, audio, screen)
     main_menu.show_menu()
-    return settings.reboot
+    return main_menu.is_reboot
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 # Точка старта
