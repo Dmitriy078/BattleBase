@@ -1,8 +1,10 @@
 import pygame
 
 from bin.camera import Camera
-from bin.characters.archer import Archer
 from bin.game_map import GameMap
+from bin.characters.archer import Archer
+from bin.characters.swordsman import Swordsman
+from bin.characters.support import Support
 
 CELL_SIZE = 50
 
@@ -19,6 +21,7 @@ class GameProcess:
 
         self.game_map = GameMap(self.registry, self.settings, 'map_road_1')
         self.all_solid_objects = self.game_map.all_solid_objects
+
         self.all_bullets_blue = pygame.sprite.Group()
         self.all_characters_blue = pygame.sprite.Group()
         self.player = Archer(self.registry, self.settings, self.audio, 'archer_blue',
@@ -29,6 +32,26 @@ class GameProcess:
         self.all_characters_red = pygame.sprite.Group()
         self.bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
                              (self.settings.w // 2 + 50, self.settings.h // 2))
+        self.all_characters_red.add(self.bot)
+
+        self.all_characters_blue = pygame.sprite.Group()
+        self.bot = Swordsman(self.registry, self.settings, self.audio, 'warrior_blue',
+                          (self.settings.w // 2, self.settings.h // 2))
+        self.all_characters_blue.add(self.player)
+
+        self.all_characters_red = pygame.sprite.Group()
+        self.bot = Swordsman(self.registry, self.settings, self.audio, 'warrior_red',
+                          (self.settings.w // 2, self.settings.h // 2))
+        self.all_characters_red.add(self.bot)
+
+        self.all_characters_blue = pygame.sprite.Group()
+        self.bot = Support(self.registry, self.settings, self.audio, 'support_blue',
+                             (self.settings.w // 2, self.settings.h // 2))
+        self.all_characters_blue.add(self.bot)
+
+        self.all_characters_red = pygame.sprite.Group()
+        self.bot = Support(self.registry, self.settings, self.audio, 'support_red',
+                             (self.settings.w // 2, self.settings.h // 2))
         self.all_characters_red.add(self.bot)
 
     def control_player(self, key_pressed_is):
