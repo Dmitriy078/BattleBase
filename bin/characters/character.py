@@ -1,3 +1,5 @@
+from os import write
+
 import pygame.sprite
 
 
@@ -24,6 +26,8 @@ class Character(pygame.sprite.Sprite):
         self.damage_time_i = 0
         self.speed_x = self.settings.fps // 30 * (self.settings.w // 800)
         self.speed_y = self.settings.fps // 30 * (self.settings.h // 600)
+        print(self.speed_y)
+        print(self.speed_x)
 
         self.control = {
             'up': False,
@@ -67,21 +71,21 @@ class Character(pygame.sprite.Sprite):
 
         if self.health > 0:
             if self.control['up']:
-                self.y -= self.speed_y
+                self.y += self.speed_y
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['down']:
-                self.y += self.speed_y
+                self.y -= self.speed_y
                 if self.status != 'attack':
                     self.status = 'walk'
 
             if self.control['left']:
-                self.x -= self.speed_x
+                self.x += self.speed_x
                 self.direction = 'left'
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['right']:
-                self.x += self.speed_x
+                self.x -= self.speed_x
                 self.direction = 'right'
                 if self.status != 'attack':
                     self.status = 'walk'

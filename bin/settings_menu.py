@@ -46,8 +46,8 @@ class SettingsMenu:
         self.switch_volume = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=520,
-            y=325,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             values=[str(i) for i in range(100)],
             select_value='1',
             width=140,
@@ -64,8 +64,8 @@ class SettingsMenu:
         self.switch_rate = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=160,
-            y=325,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             values=[str(i) for i in range(100)],
             select_value='1',
             width=140,
@@ -83,7 +83,7 @@ class SettingsMenu:
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
             text='exit',
-            x=325,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
             y=465,
             width=170,
             height=90,
@@ -101,8 +101,8 @@ class SettingsMenu:
             texture=self.but_apply_first,
             texture_press=self.but_apply_press,
             text='apply',
-            x=320,
-            y=355,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             width=190,
             height=90,
             text_color_rgb=(138, 9, 47),
@@ -119,8 +119,8 @@ class SettingsMenu:
         self.full_screen_text = Text(
             texture=None,  # У нас нет текстуры для текста
             text='full-screen mode',
-            x=254,  # Центрируем текст
-            y=132,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             width=300,
             height=100,
             text_color_rgb=(138, 9, 47),
@@ -132,8 +132,8 @@ class SettingsMenu:
         self.overall_volume_text = Text(
             texture=None,  # У нас нет текстуры для текста
             text='Overall volume',
-            x=434,  # Центрируем текст
-            y=252,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             width=300,
             height=100,
             text_color_rgb=(138, 9, 47),
@@ -145,8 +145,8 @@ class SettingsMenu:
         self.frame_rate_text = Text(
             texture=None,  # У нас нет текстуры для текста
             text='Frame rate',
-            x=95,  # Центрируем текст
-            y=252,
+            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
+            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
             width=300,
             height=100,
             text_color_rgb=(138, 9, 47),
