@@ -26,8 +26,6 @@ class Character(pygame.sprite.Sprite):
         self.damage_time_i = 0
         self.speed_x = self.settings.fps // 30 * (self.settings.w // 800)
         self.speed_y = self.settings.fps // 30 * (self.settings.h // 600)
-        print(self.speed_y)
-        print(self.speed_x)
 
         self.control = {
             'up': False,
