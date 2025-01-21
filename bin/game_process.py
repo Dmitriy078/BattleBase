@@ -24,9 +24,9 @@ class GameProcess:
 
         self.all_bullets_red = pygame.sprite.Group()
         self.all_characters_red = pygame.sprite.Group()
-        bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
+        self.bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
                              (self.settings.w // 2 + 50, self.settings.h // 2))
-        self.all_characters_red.add(bot)
+        self.all_characters_red.add(self.bot)
 
     def control_player(self, key_pressed_is):
         if key_pressed_is[pygame.K_a]:

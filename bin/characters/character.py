@@ -71,21 +71,21 @@ class Character(pygame.sprite.Sprite):
 
         if self.health > 0:
             if self.control['up']:
-                self.y += self.speed_y
+                self.y -= self.speed_y
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['down']:
-                self.y -= self.speed_y
+                self.y += self.speed_y
                 if self.status != 'attack':
                     self.status = 'walk'
 
             if self.control['left']:
-                self.x += self.speed_x
+                self.x -= self.speed_x
                 self.direction = 'left'
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['right']:
-                self.x -= self.speed_x
+                self.x += self.speed_x
                 self.direction = 'right'
                 if self.status != 'attack':
                     self.status = 'walk'
