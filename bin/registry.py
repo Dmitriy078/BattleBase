@@ -14,10 +14,12 @@ class Registry:
         self.bg_main_menu = []
         self.textures = dict()
         self.t_bullets = dict()
+        self.terrain = dict()
 
         self.load_textures_background_main_menu()
         self.load_textures_characters()
         self.load_textures_bullets()
+        self.load_textures_terrain()
 
     def load_textures_background_main_menu(self):
         self.bg_main_menu.clear()
@@ -132,6 +134,15 @@ class Registry:
     def load_textures_bullets(self):
         self.t_bullets['arrow'] = pygame.transform.scale(self.load_image('bullets/arrow.png', True),
                                                      self.settings.arrow_size)
+
+    def load_textures_terrain(self):
+        frames = self.load_image(f'terrain/elevation.png', True)
+        frames = self.cut_sheet(frames, 4, 8)
+        self.terrain['elevation'] = frames
+
+        frames = self.load_image(f'terrain/flat.png', True)
+        frames = self.cut_sheet(frames, 10, 4)
+        self.terrain['flat'] = frames
 
     # Функция для загрузки изображения
     def load_image(self, name, alpha=False):

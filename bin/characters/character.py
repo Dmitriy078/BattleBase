@@ -1,3 +1,5 @@
+from os import write
+
 import pygame.sprite
 
 

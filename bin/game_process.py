@@ -2,6 +2,7 @@ import pygame
 
 from bin.camera import Camera
 from bin.characters.archer import Archer
+from bin.game_map import GameMap
 
 CELL_SIZE = 50
 
@@ -16,6 +17,8 @@ class GameProcess:
         self.running = True
         self.clock = pygame.time.Clock()
 
+        self.game_map = GameMap(self.registry, self.settings, 'map_road_1')
+        self.all_solid_objects = self.game_map.all_solid_objects
         self.all_bullets_blue = pygame.sprite.Group()
         self.all_characters_blue = pygame.sprite.Group()
         self.player = Archer(self.registry, self.settings, self.audio, 'archer_blue',
@@ -24,9 +27,9 @@ class GameProcess:
 
         self.all_bullets_red = pygame.sprite.Group()
         self.all_characters_red = pygame.sprite.Group()
-        bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
+        self.bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
                              (self.settings.w // 2 + 50, self.settings.h // 2))
-        self.all_characters_red.add(bot)
+        self.all_characters_red.add(self.bot)
 
     def control_player(self, key_pressed_is):
         if key_pressed_is[pygame.K_a]:
@@ -92,6 +95,7 @@ class GameProcess:
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
             self.all_bullets_red.draw(self.screen)
+            self.all_solid_objects.draw(self.screen)
 
             # Отображение
             pygame.display.flip()
