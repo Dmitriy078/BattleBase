@@ -1,5 +1,4 @@
 import math
-
 import pygame.sprite
 
 
@@ -61,7 +60,13 @@ class Arrow(pygame.sprite.Sprite):
         self.direction_y /= length
         self.audio_player.play_sound('resources/sounds/firing the arrow.mp3')
 
-    def update(self, enemy):
+    def update(self, enemy, solid_objects):
+        for s in solid_objects:
+            if pygame.sprite.collide_mask(self, s):
+                self.destroy()
+                self.time = self.time_health
+                return
+
         for e in enemy:
             if pygame.sprite.collide_mask(self, e):
                 e.get_damage(self.damage)

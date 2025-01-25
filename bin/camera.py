@@ -7,8 +7,12 @@ class Camera:
 
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
-        obj.x += self.dx
-        obj.y += self.dy
+        if hasattr(obj, 'x') and hasattr(obj, 'y'):
+            obj.x += self.dx
+            obj.y += self.dy
+        else:
+            obj.rect.x += self.dx
+            obj.rect.y += self.dy
 
     # позиционировать камеру на объекте target
     def update(self, target):

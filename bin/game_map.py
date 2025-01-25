@@ -3,15 +3,31 @@ import os.path
 import pygame
 
 from bin.block import Block
+from bin.characters.archer import Archer
+from bin.characters.support import Support
+from bin.characters.swordsman import Swordsman
 
 
 class GameMap:
-    def __init__(self, registry, settings, level):
+    def __init__(self, registry, settings, audio, level):
         self.level = level
         self.registry = registry
         self.settings = settings
+        self.audio = audio
         self.grid = None
+
+        self.all_bullets_blue = pygame.sprite.Group()
+        self.all_characters_blue = pygame.sprite.Group()
+
+        self.all_bullets_red = pygame.sprite.Group()
+        self.all_characters_red = pygame.sprite.Group()
+
         self.all_solid_objects = pygame.sprite.Group()
+        self.all_not_solid_objects = pygame.sprite.Group()
+
+        self.player = None
+        self.player_character = 'archer'
+
         self.load_level()
 
     def load_level(self):
@@ -22,13 +38,64 @@ class GameMap:
         data = None
         with open(f'resources/maps/{self.level}.csv', 'r', encoding='utf-8') as file:
             data = [row.rstrip().split(';') for row in file.readlines()]
-        print(data)
 
         self.grid = [[] for i in range(len(data))]
         for row in range(len(data)):
             for col in range(len(data[row])):
-                if 'elevation' in data[row][col]:
-                    cell = data[row][col].split('_')
-                    pos = (col * self.settings.cell_size, row * self.settings.cell_size,)
-                    block = Block(self.registry.terrain['elevation'][int(cell[1])], pos)
-                    self.all_solid_objects.add(block)
+                cell = data[row][col].split('.')
+
+                for e in cell:
+                    if 'elevation' in e:
+                        temp = e.split('_')
+                        pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                        block = Block(self.registry.terrain['elevation'][int(temp[1])], pos)
+                        self.all_solid_objects.add(block)
+
+                    if 'flat' in e:
+                        temp = e.split('_')
+                        pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                        block = Block(self.registry.terrain['flat'][int(temp[1])], pos)
+                        self.all_not_solid_objects.add(block)
+
+                    if 'red' in e:
+                        if 'archer' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Archer(self.registry, self.settings, self.audio, 'archer_red', pos)
+                            self.all_characters_red.add(temp)
+
+                        if 'warrior' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Swordsman(self.registry, self.settings, self.audio, 'warrior_red', pos)
+                            self.all_characters_red.add(temp)
+
+                        if 'support' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Support(self.registry, self.settings, self.audio, 'support_red', pos)
+                            self.all_characters_red.add(temp)
+
+                    if 'blue' in e:
+                        if 'archer' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Archer(self.registry, self.settings, self.audio, 'archer_blue', pos)
+                            self.all_characters_blue.add(temp)
+
+                        if 'warrior' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Swordsman(self.registry, self.settings, self.audio, 'warrior_blue', pos)
+                            self.all_characters_blue.add(temp)
+
+                        if 'support' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            temp = Support(self.registry, self.settings, self.audio, 'support_blue', pos)
+                            self.all_characters_blue.add(temp)
+
+                    if 'player' in e:
+                        temp = e.split('_')
+                        pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                        if self.player_character == 'archer':
+                            temp = Archer(self.registry, self.settings, self.audio, 'archer_blue', pos)
+
+                        self.all_characters_blue.add(temp)
+                        self.player = temp
+
+

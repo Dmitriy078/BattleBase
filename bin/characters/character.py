@@ -1,10 +1,8 @@
-from os import write
-
 import pygame.sprite
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, res, settings, audio_player, name, pos=(0,0)):
+    def __init__(self, res, settings, audio_player, name, pos=(0, 0)):
         super().__init__()
         self.res = res
         self.settings = settings
@@ -19,6 +17,7 @@ class Character(pygame.sprite.Sprite):
 
         self.image = self.res.textures[name][self.direction][self.status]['frames'][self.current_frame]
         self.rect = self.image.get_rect()
+
         self.x, self.y = self.rect.x, self.rect.y = pos
 
         self.health = 100
@@ -37,7 +36,7 @@ class Character(pygame.sprite.Sprite):
 
         self.bullet = None
 
-    def update(self, mouse_pos, all_bullets, camera):
+    def update(self, mouse_pos, all_bullets, camera, solid_objects):
         self.time += 1
 
         if self.damage_time_i:
@@ -70,10 +69,12 @@ class Character(pygame.sprite.Sprite):
         if self.health > 0:
             if self.control['up']:
                 self.y -= self.speed_y
+
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['down']:
                 self.y += self.speed_y
+
                 if self.status != 'attack':
                     self.status = 'walk'
 
@@ -87,6 +88,8 @@ class Character(pygame.sprite.Sprite):
                 self.direction = 'right'
                 if self.status != 'attack':
                     self.status = 'walk'
+
+            print(pygame.sprite.spritecollideany(self, solid_objects))
 
             if self.control['attack']:
                 if self.status != 'attack':
