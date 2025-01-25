@@ -89,7 +89,28 @@ class Character(pygame.sprite.Sprite):
                 if self.status != 'attack':
                     self.status = 'walk'
 
-            print(pygame.sprite.spritecollideany(self, solid_objects))
+            collide = pygame.sprite.spritecollideany(self, solid_objects)
+            if collide:
+                if self.rect.colliderect(collide.rect):
+                    # Определение расстояний между границами спрайта и границами коллидера
+                    right_distance = collide.rect.left - self.rect.right  # расстояние до левой грани коллайдера
+                    left_distance = collide.rect.right - self.rect.left  # расстояние до правой грани коллайдера
+                    bottom_distance = collide.rect.top - self.rect.bottom  # расстояние до верхней грани коллайдера
+                    top_distance = collide.rect.bottom - self.rect.top  # расстояние до нижней грани коллайдера
+
+                    # Определение минимального расстояния столкновения
+                    min_distance = min(abs(right_distance), abs(left_distance), abs(bottom_distance), abs(top_distance))
+
+                    if min_distance == abs(right_distance):  # Столкновение справа
+                        self.x += right_distance  # Сдвигаем спрайт влево
+                    elif min_distance == abs(left_distance):  # Столкновение слева
+                        self.x += left_distance  # Сдвигаем спрайт вправо
+
+                    if min_distance == abs(bottom_distance):  # Столкновение снизу
+                        self.y += bottom_distance  # Сдвигаем спрайт вверх
+                    elif min_distance == abs(top_distance):  # Столкновение сверху
+                        self.y += top_distance  # Сдвигаем спрайт вниз
+
 
             if self.control['attack']:
                 if self.status != 'attack':
