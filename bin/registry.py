@@ -15,11 +15,13 @@ class Registry:
         self.textures = dict()
         self.t_bullets = dict()
         self.terrain = dict()
+        self.copse = dict()
 
         self.load_textures_background_main_menu()
         self.load_textures_characters()
         self.load_textures_bullets()
         self.load_textures_terrain()
+        self.load_textures_bullets()
 
     def load_textures_background_main_menu(self):
         self.bg_main_menu.clear()
@@ -172,6 +174,7 @@ class Registry:
                     }
                 }
             }
+
         # тут загружаем остальных
 
 
@@ -180,6 +183,7 @@ class Registry:
         self.t_bullets['arrow'] = pygame.transform.scale(self.load_image('bullets/arrow.png', True),
                                                      self.settings.arrow_size)
 
+    # функция для загрузки текстур поля
     def load_textures_terrain(self):
         frames = self.load_image(f'terrain/elevation.png', True)
         frames = self.cut_sheet(frames, 4, 8)
@@ -188,6 +192,28 @@ class Registry:
         frames = self.load_image(f'terrain/flat.png', True)
         frames = self.cut_sheet(frames, 10, 4)
         self.terrain['flat'] = frames
+
+    # функция для загрузки текстур строений
+    def load_textures_building(self):
+        dead_frames = self.load_image('copse/castle_destroyed.png', True)
+        dead_frames = self.cut_sheet(dead_frames)
+        frames = self.load_image(f'copse/castle_blue.png', True)
+        self.copse['castle_blue'] = frames
+
+        dead_frames = self.load_image('copse/castle_destroyed.png', True)
+        dead_frames = self.cut_sheet(dead_frames)
+        frames = self.load_image(f'copse/castle_red.png', True)
+        self.copse['castle_red'] = frames
+
+        dead_frames = self.load_image('copse/tower_destroyed.png', True)
+        dead_frames = self.cut_sheet(dead_frames)
+        frames = self.load_image(f'copse/tower_blue.png', True)
+        self.copse['tower_blue'] = frames
+
+        dead_frames = self.load_image('copse/tower_destroyed.png', True)
+        dead_frames = self.cut_sheet(dead_frames)
+        frames = self.load_image(f'copse/tower_red.png', True)
+        self.copse['tower_red'] = frames
 
     # Функция для загрузки изображения
     def load_image(self, name, alpha=False):
