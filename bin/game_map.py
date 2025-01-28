@@ -4,6 +4,7 @@ import pygame
 
 from bin.block import Block
 from bin.buildings.castle import Castle
+from bin.buildings.tower import Tower
 from bin.characters.archer import Archer
 from bin.characters.support import Support
 from bin.characters.swordsman import Swordsman
@@ -20,9 +21,12 @@ class GameMap:
         self.all_bullets_blue = pygame.sprite.Group()
         self.all_characters_blue = pygame.sprite.Group()
         self.all_castle_blue = pygame.sprite.Group()
+        self.all_tower_blue = pygame.sprite.Group()
 
         self.all_bullets_red = pygame.sprite.Group()
         self.all_characters_red = pygame.sprite.Group()
+        self.all_castle_red = pygame.sprite.Group()
+        self.all_tower_red = pygame.sprite.Group()
 
         self.all_solid_objects = pygame.sprite.Group()
         self.all_not_solid_objects = pygame.sprite.Group()
@@ -60,6 +64,16 @@ class GameMap:
                         self.all_not_solid_objects.add(block)
 
                     if 'red' in e:
+                        if 'castle_red' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Castle(self.registry.copse['castle_red'], pos)
+                            self.all_castle_red.add(block)
+
+                        if 'tower_red' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Tower(self.registry.copse['tower_red'], pos)
+                            self.all_tower_red.add(block)
+
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
                             temp = Archer(self.registry, self.settings, self.audio, 'archer_red', pos)
@@ -75,22 +89,16 @@ class GameMap:
                             temp = Support(self.registry, self.settings, self.audio, 'support_red', pos)
                             self.all_characters_red.add(temp)
 
-                        # if 'castle' in e:
-                        #     pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        #     temp = Castle(self.registry, self.settings, self.audio, 'castle_red', pos)
-                        #     self.all_characters_red.add(temp)
-
-                        # if 'tower' in e:
-                        #     pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        #     temp = Tower(self.registry, self.settings, self.audio, 'tower_red', pos)
-                        #     self.all_characters_red.add(temp)
-
-
                     if 'blue' in e:
                         if 'castle_blue' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
                             block = Castle(self.registry.copse['castle_blue'], pos)
                             self.all_castle_blue.add(block)
+
+                        if 'tower_blue' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Tower(self.registry.copse['tower_blue'], pos)
+                            self.all_tower_blue.add(block)
 
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
@@ -107,16 +115,6 @@ class GameMap:
                             temp = Support(self.registry, self.settings, self.audio, 'support_blue', pos)
                             self.all_characters_blue.add(temp)
 
-                        # if 'castle' in e:
-                        #     pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        #     temp = Castle(self.registry, self.settings, self.audio, 'castle_blue', pos)
-                        #     self.all_characters_red.add(temp)
-                        #
-                        # if 'tower' in e:
-                        #     pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        #     temp = Tower(self.registry, self.settings, self.audio, 'tower_blue', pos)
-                        #     self.all_characters_red.add(temp)
-
                     if 'player' in e:
                         temp = e.split('_')
                         pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
@@ -125,5 +123,3 @@ class GameMap:
 
                         self.all_characters_blue.add(temp)
                         self.player = temp
-
-

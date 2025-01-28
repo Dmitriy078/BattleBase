@@ -23,6 +23,10 @@ class GameProcess:
         self.all_characters_blue = self.game_map.all_characters_blue
 
         self.all_castle_blue = self.game_map.all_castle_blue
+        self.all_castle_red = self.game_map.all_castle_red
+
+        self.all_tower_blue = self.game_map.all_tower_blue
+        self.all_tower_red = self.game_map.all_tower_red
 
         self.all_bullets_red = self.game_map.all_bullets_red
         self.all_characters_red = self.game_map.all_characters_red
@@ -75,8 +79,10 @@ class GameProcess:
             # Обновления
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
             self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects)
-            self.all_bullets_blue.update(self.all_characters_red, self.all_solid_objects)
-            self.all_bullets_red.update(self.all_characters_blue, self.all_solid_objects)
+            self.all_bullets_blue.update(self.all_characters_red, self.all_castle_red,
+                                         self.all_tower_red, self.all_solid_objects)
+            self.all_bullets_red.update(self.all_characters_blue, self.all_castle_blue,
+                                        self.all_tower_blue, self.all_solid_objects)
 
             if self.player:
                 self.control_player(key_pressed_is)
@@ -86,6 +92,12 @@ class GameProcess:
             for sprite in self.all_solid_objects:
                 camera.apply(sprite)
             for sprite in self.all_castle_blue:
+                camera.apply(sprite)
+            for sprite in self.all_castle_red:
+                camera.apply(sprite)
+            for sprite in self.all_tower_blue:
+                camera.apply(sprite)
+            for sprite in self.all_tower_red:
                 camera.apply(sprite)
             for sprite in self.all_characters_blue:
                 camera.apply(sprite)
@@ -101,6 +113,9 @@ class GameProcess:
             self.all_not_solid_objects.draw(self.screen)
             self.all_solid_objects.draw(self.screen)
             self.all_castle_blue.draw(self.screen)
+            self.all_castle_red.draw(self.screen)
+            self.all_tower_blue.draw(self.screen)
+            self.all_tower_red.draw(self.screen)
             self.all_characters_blue.draw(self.screen)
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
