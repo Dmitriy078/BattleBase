@@ -17,7 +17,7 @@ class GameProcess:
         self.running = True
         self.clock = pygame.time.Clock()
 
-        self.game_map = GameMap(self.registry, self.settings, self.audio, 'map_road_1')
+        self.game_map = GameMap(self.registry, self.settings, self.audio, 'map_road_2')
 
         self.all_bullets_blue = self.game_map.all_bullets_blue
         self.all_characters_blue = self.game_map.all_characters_blue
