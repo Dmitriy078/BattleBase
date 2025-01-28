@@ -22,6 +22,8 @@ class GameProcess:
         self.all_bullets_blue = self.game_map.all_bullets_blue
         self.all_characters_blue = self.game_map.all_characters_blue
 
+        self.all_castle_blue = self.game_map.all_castle_blue
+
         self.all_bullets_red = self.game_map.all_bullets_red
         self.all_characters_red = self.game_map.all_characters_red
 
@@ -83,6 +85,8 @@ class GameProcess:
                 camera.apply(sprite)
             for sprite in self.all_solid_objects:
                 camera.apply(sprite)
+            for sprite in self.all_castle_blue:
+                camera.apply(sprite)
             for sprite in self.all_characters_blue:
                 camera.apply(sprite)
             for sprite in self.all_characters_red:
@@ -96,6 +100,7 @@ class GameProcess:
             self.screen.fill('white')
             self.all_not_solid_objects.draw(self.screen)
             self.all_solid_objects.draw(self.screen)
+            self.all_castle_blue.draw(self.screen)
             self.all_characters_blue.draw(self.screen)
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
