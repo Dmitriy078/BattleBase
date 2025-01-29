@@ -8,6 +8,7 @@ class Settings:
         self.display = 0
         self.resolutions = pygame.display.list_modes(display=self.display)
         self.full_screen_mode = False
+        self.sound = 60
         if (1600, 900) in self.resolutions:
             self.resolution = (1600, 900)
         else:
@@ -41,8 +42,12 @@ class Settings:
                         self.full_screen_mode = True
                     else:
                         self.full_screen_mode = False
+                elif key == "s_volume":
+                    self.sound = int(value)
+                elif key == "fps":
+                    self.fps = int(self.fps)
 
-    def save_settings(self,):
+    def save_settings(self):
         if not os.path.exists("data"):
             os.mkdir('data')
 
@@ -50,5 +55,6 @@ class Settings:
             data = f'''name_parameter;value
 full_screen_mode;{self.full_screen_mode}
 resolution;{self.w},{self.h}
+s_volume;{self.sound}
 fps;{self.fps}'''
             file.write(data)

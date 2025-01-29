@@ -11,7 +11,7 @@ class SettingsMenu:
         self.resolution = resolution
         self.audio = audio
         self.is_reboot = False
-        self.size = self.width, self.height = self.settings.resolution
+        self.w, self.h = self.settings.resolution
         self.screen = screen
         self.running = True
         self.clock = pygame.time.Clock()
@@ -24,17 +24,57 @@ class SettingsMenu:
             "resources/buttons/Button_Blue_Pressed.png")
         font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
 
+        self.full_screen_text = Text(
+            texture=None,  # У нас нет текстуры для текста
+            text='full-screen mode',
+            x=self.settings.w * 0.42,  # Центрируем текст
+            y=self.settings.h * 0.3,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
+        self.overall_volume_text = Text(
+            texture=None,  # У нас нет текстуры для текста
+            text='Overall volume',
+            x=self.settings.w * 0.25,  # Центрируем текст
+            y=self.settings.h * 0.4,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
+        self.frame_rate_text = Text(
+            texture=None,  # У нас нет текстуры для текста
+            text='Frame rate',
+            x=self.settings.w * 0.57,  # Центрируем текст
+            y=self.settings.h * 0.4,
+            width=300,
+            height=100,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0)
+
         self.switch_full_screen_mode = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
+            x=self.settings.w * 0.45,  # Центрируем текст
             y=self.settings.h // 2 - (self.settings.h * 0.2 // 2),
             values=['Yes', 'No'],
             select_value='No' if self.settings.full_screen_mode == False else 'Yes',
-            width=self.settings.w * 0.2,
-            height=self.settings.h * 0.1,
+            width=self.settings.w * 0.12,
+            height=self.settings.h * 0.12,
             font=font,
-            font_size=16,
+            font_size=self.w * self.h // 75000,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -42,18 +82,17 @@ class SettingsMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-
         self.switch_volume = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
-            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
-            values=[str(i) for i in range(100)],
-            select_value='1',
+            x=self.settings.w * 0.3,
+            y=self.settings.h * 0.5,
+            values=[str(i) for i in range(0, 101, 10)],
+            select_value=str(self.settings.sound),
             width=140,
             height=90,
             font=font,
-            font_size=18,
+            font_size=self.w * self.h // 75000,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -64,14 +103,14 @@ class SettingsMenu:
         self.switch_rate = ValueSwitch(
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
-            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
-            values=[str(i) for i in range(100)],
-            select_value='1',
+            x=self.settings.w * 0.62,
+            y=self.settings.h * 0.5,
+            values=[str(i) for i in range(45, 91, 15)],
+            select_value=str(self.settings.fps),
             width=140,
             height=90,
             font=font,
-            font_size=18,
+            font_size=self.w * self.h // 75000,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -83,13 +122,13 @@ class SettingsMenu:
             texture=self.but_exit_first,
             texture_press=self.but_exit_press,
             text='exit',
-            x=self.settings.w // 2 - (self.settings.w * 0.1 // 2),
-            y=self.settings.h // 2 - (self.settings.w * 0.01),
+            x=self.settings.w * 0.457,
+            y=self.settings.h * 0.75,
             width=170,
             height=90,
             text_color_rgb=(138, 9, 47),
             font=font,
-            font_size=18,
+            font_size=self.w * self.h // 75000,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -101,13 +140,13 @@ class SettingsMenu:
             texture=self.but_apply_first,
             texture_press=self.but_apply_press,
             text='apply',
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),
-            y=self.settings.h // 2 - (self.settings.w * 0.1),
+            x=self.settings.w * 0.45,
+            y=self.settings.h * 0.6,
             width=190,
             height=90,
             text_color_rgb=(138, 9, 47),
             font=font,
-            font_size=18,
+            font_size=self.w * self.h // 75000,
             center_text=True,
             offset_text_x=5,
             offset_text_y=10,
@@ -116,45 +155,6 @@ class SettingsMenu:
             audio_player=self.audio
         )
         self.but_apply.call = self.save_settings
-        self.full_screen_text = Text(
-            texture=None,  # У нас нет текстуры для текста
-            text='full-screen mode',
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
-            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
-            width=300,
-            height=100,
-            text_color_rgb=(138, 9, 47),
-            font=font,
-            font_size=50,
-            center_text=True,
-            offset_text_x=0,
-            offset_text_y=0)
-        self.overall_volume_text = Text(
-            texture=None,  # У нас нет текстуры для текста
-            text='Overall volume',
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
-            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
-            width=300,
-            height=100,
-            text_color_rgb=(138, 9, 47),
-            font=font,
-            font_size=50,
-            center_text=True,
-            offset_text_x=0,
-            offset_text_y=0)
-        self.frame_rate_text = Text(
-            texture=None,  # У нас нет текстуры для текста
-            text='Frame rate',
-            x=self.settings.w // 2 - (self.settings.w * 0.2 // 2),  # Центрируем текст
-            y=self.settings.h // 2 - (self.settings.w * 0.2 // 2),
-            width=300,
-            height=100,
-            text_color_rgb=(138, 9, 47),
-            font=font,
-            font_size=50,
-            center_text=True,
-            offset_text_x=0,
-            offset_text_y=0)
 
         self.frame = pygame.image.load(file)
         self.frame = pygame.transform.scale(self.frame, self.resolution)
@@ -210,7 +210,9 @@ class SettingsMenu:
             self.settings.full_screen_mode = True
         else:
             self.settings.full_screen_mode = False
-        print(self.settings.full_screen_mode)
+        self.settings.sound = self.switch_volume.get_value()
+        self.settings.fps = int(self.switch_rate.get_value())
+
         self.settings.reboot = True
         self.settings.save_settings()
 
