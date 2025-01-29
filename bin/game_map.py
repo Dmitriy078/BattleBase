@@ -66,12 +66,18 @@ class GameMap:
                     if 'red' in e:
                         if 'castle_red' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Castle(self.registry.copse['castle_red'], pos)
+                            block = Castle(self.registry.copse['castle_red'],
+                                           self.registry.copse['castle_red_destroyed'],
+                                           self.settings,
+                                           pos)
                             self.all_castle_red.add(block)
 
                         if 'tower_red' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Tower(self.registry.copse['tower_red'], pos)
+                            block = Tower(self.registry.copse['tower_red'],
+                                           self.registry.copse['tower_red_destroyed'],
+                                           self.settings,
+                                           pos)
                             self.all_tower_red.add(block)
 
                         if 'archer' in e:
@@ -92,12 +98,18 @@ class GameMap:
                     if 'blue' in e:
                         if 'castle_blue' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Castle(self.registry.copse['castle_blue'], pos)
+                            block = Castle(self.registry.copse['castle_blue'],
+                                           self.registry.copse['castle_blue_destroyed'],
+                                           self.settings,
+                                           pos)
                             self.all_castle_blue.add(block)
 
                         if 'tower_blue' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Tower(self.registry.copse['tower_blue'], pos)
+                            block = Tower(self.registry.copse['tower_blue'],
+                                           self.registry.copse['tower_blue_destroyed'],
+                                           self.settings,
+                                           pos)
                             self.all_tower_blue.add(block)
 
                         if 'archer' in e:

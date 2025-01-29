@@ -77,6 +77,10 @@ class GameProcess:
             mouse_pos = pygame.mouse.get_pos()
 
             # Обновления
+            self.all_castle_blue.update()
+            self.all_castle_red.update()
+            self.all_tower_blue.update()
+            self.all_tower_red.update()
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
             self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects)
             self.all_bullets_blue.update(self.all_characters_red, self.all_castle_red,

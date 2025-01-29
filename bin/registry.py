@@ -201,28 +201,28 @@ class Registry:
         frames = pygame.transform.scale(frames, self.settings.cell_size)
         dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
         self.copse['castle_blue'] = frames
-        self.copse['castle_blue_destroyed'] = frames
+        self.copse['castle_blue_destroyed'] = dead_frames
 
         dead_frames = self.load_image('copse/castle_destroyed.png', True)
         frames = self.load_image(f'copse/castle_red.png', True)
         frames = pygame.transform.scale(frames, self.settings.cell_size)
         dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
         self.copse['castle_red'] = frames
-        self.copse['castle_red_destroyed'] = frames
+        self.copse['castle_red_destroyed'] = dead_frames
 
         dead_frames = self.load_image('copse/tower_destroyed.png', True)
         frames = self.load_image(f'copse/tower_blue.png', True)
         frames = pygame.transform.scale(frames, self.settings.cell_size)
         dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
         self.copse['tower_blue'] = frames
-        self.copse['tower_blue_destroyed'] = frames
+        self.copse['tower_blue_destroyed'] = dead_frames
 
         dead_frames = self.load_image('copse/tower_destroyed.png', True)
         frames = self.load_image(f'copse/tower_red.png', True)
         frames = pygame.transform.scale(frames, self.settings.cell_size)
         dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
         self.copse['tower_red'] = frames
-        self.copse['tower_red_destroyed'] = frames
+        self.copse['tower_red_destroyed'] = dead_frames
 
     # Функция для загрузки изображения
     def load_image(self, name, alpha=False):
