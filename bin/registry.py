@@ -14,10 +14,15 @@ class Registry:
         self.bg_main_menu = []
         self.textures = dict()
         self.t_bullets = dict()
+        self.terrain = dict()
+        self.copse = dict()
 
         self.load_textures_background_main_menu()
         self.load_textures_characters()
         self.load_textures_bullets()
+        self.load_textures_terrain()
+        self.load_textures_bullets()
+        self.load_textures_building()
 
     def load_textures_background_main_menu(self):
         self.bg_main_menu.clear()
@@ -81,12 +86,143 @@ class Registry:
                 }
             }
 
+        for i in ('warrior_blue', 'warrior_red'):
+            dead_frames = self.load_image('characters/dead.png', True)
+            dead_frames = self.cut_sheet(dead_frames, 7, 2)
+            frames = self.load_image(f'characters/{i}.png', True)
+            frames = self.cut_sheet(frames, 6, 8)
+
+            self.textures[i] = {
+                'left': {
+                    'idle': {
+                        'frames': self.horisontal_invert(frames[0:5]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': self.horisontal_invert(frames[6:11]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': self.horisontal_invert(frames[12:17]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': self.horisontal_invert(dead_frames),
+                        't_change': self.settings.fps // 10
+                    }
+                },
+                'right':{
+                    'idle': {
+                        'frames': frames[0:5],
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': frames[6:11],
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': frames[12:17],
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': dead_frames,
+                        't_change': self.settings.fps // 10
+                    }
+                }
+            }
+
+        for i in ('support_blue', 'support_red'):
+            dead_frames = self.load_image('characters/dead.png', True)
+            dead_frames = self.cut_sheet(dead_frames, 7, 2)
+            frames = self.load_image(f'characters/{i}.png', True)
+            frames = self.cut_sheet(frames, 7, 5)
+
+            self.textures[i] = {
+                'left': {
+                    'idle': {
+                        'frames': self.horisontal_invert(frames[0:6]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': self.horisontal_invert(frames[7:13]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': self.horisontal_invert(frames[14:20]),
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': self.horisontal_invert(dead_frames),
+                        't_change': self.settings.fps // 10
+                    }
+                },
+                'right':{
+                    'idle': {
+                        'frames': frames[0:6],
+                        't_change': self.settings.fps // 12
+                    },
+                    'walk': {
+                        'frames': frames[7:13],
+                        't_change': self.settings.fps // 12
+                    },
+                    'attack': {
+                        'frames': frames[14:20],
+                        't_change': self.settings.fps // 12
+                    },
+                    'dead': {
+                        'frames': dead_frames,
+                        't_change': self.settings.fps // 10
+                    }
+                }
+            }
+
         # тут загружаем остальных
+
 
     # Функция для загрузки снарядов
     def load_textures_bullets(self):
         self.t_bullets['arrow'] = pygame.transform.scale(self.load_image('bullets/arrow.png', True),
                                                      self.settings.arrow_size)
+
+    # функция для загрузки текстур поля
+    def load_textures_terrain(self):
+        frames = self.load_image(f'terrain/elevation.png', True)
+        frames = self.cut_sheet(frames, 4, 8)
+        self.terrain['elevation'] = frames
+
+        frames = self.load_image(f'terrain/flat.png', True)
+        frames = self.cut_sheet(frames, 10, 4)
+        self.terrain['flat'] = frames
+
+    # функция для загрузки текстур строений
+    def load_textures_building(self):
+        dead_frames = self.load_image('copse/castle_destroyed.png', True)
+        frames = self.load_image(f'copse/castle_blue.png', True)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
+        dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
+        self.copse['castle_blue'] = frames
+        self.copse['castle_blue_destroyed'] = dead_frames
+
+        dead_frames = self.load_image('copse/castle_destroyed.png', True)
+        frames = self.load_image(f'copse/castle_red.png', True)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
+        dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
+        self.copse['castle_red'] = frames
+        self.copse['castle_red_destroyed'] = dead_frames
+
+        dead_frames = self.load_image('copse/tower_destroyed.png', True)
+        frames = self.load_image(f'copse/tower_blue.png', True)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
+        dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
+        self.copse['tower_blue'] = frames
+        self.copse['tower_blue_destroyed'] = dead_frames
+
+        dead_frames = self.load_image('copse/tower_destroyed.png', True)
+        frames = self.load_image(f'copse/tower_red.png', True)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
+        dead_frames = pygame.transform.scale(dead_frames, self.settings.cell_size)
+        self.copse['tower_red'] = frames
+        self.copse['tower_red_destroyed'] = dead_frames
 
     # Функция для загрузки изображения
     def load_image(self, name, alpha=False):

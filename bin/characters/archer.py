@@ -1,13 +1,14 @@
-from bin.buttons.arrow import Arrow
+from bin.bullets.arrow import Arrow
 from bin.characters.character import Character
 
 
+# класс лучника
 class Archer(Character):
     def __init__(self, res, settings, audio_player, name='archer_blue', pos=(0,0)):
         super().__init__(res, settings, audio_player, name=name, pos=pos)
         
-    def update(self, mouse_pos, all_bullets, camera):
-        super().update(mouse_pos, all_bullets, camera)
+    def update(self, mouse_pos, all_bullets, camera, solid_objects):
+        super().update(mouse_pos, all_bullets, camera, solid_objects)
 
         if self.status == 'attack':
             if (self.current_frame == len(self.res.textures[self.name][self.direction][self.status]['frames']) - 2

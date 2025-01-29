@@ -1,9 +1,10 @@
 import pygame
 
 from bin.camera import Camera
-from bin.characters.archer import Archer
+from bin.game_map import GameMap
 
 CELL_SIZE = 50
+
 
 class GameProcess:
     def __init__(self, settings, registry, audio, screen):
@@ -16,17 +17,24 @@ class GameProcess:
         self.running = True
         self.clock = pygame.time.Clock()
 
-        self.all_bullets_blue = pygame.sprite.Group()
-        self.all_characters_blue = pygame.sprite.Group()
-        self.player = Archer(self.registry, self.settings, self.audio, 'archer_blue',
-                             (self.settings.w // 2, self.settings.h // 2))
-        self.all_characters_blue.add(self.player)
+        self.game_map = GameMap(self.registry, self.settings, self.audio, 'map_road_2')
 
-        self.all_bullets_red = pygame.sprite.Group()
-        self.all_characters_red = pygame.sprite.Group()
-        self.bot = Archer(self.registry, self.settings, self.audio, 'archer_red',
-                             (self.settings.w // 2 + 50, self.settings.h // 2))
-        self.all_characters_red.add(self.bot)
+        self.all_bullets_blue = self.game_map.all_bullets_blue
+        self.all_characters_blue = self.game_map.all_characters_blue
+
+        self.all_castle_blue = self.game_map.all_castle_blue
+        self.all_castle_red = self.game_map.all_castle_red
+
+        self.all_tower_blue = self.game_map.all_tower_blue
+        self.all_tower_red = self.game_map.all_tower_red
+
+        self.all_bullets_red = self.game_map.all_bullets_red
+        self.all_characters_red = self.game_map.all_characters_red
+
+        self.all_solid_objects = self.game_map.all_solid_objects
+        self.all_not_solid_objects = self.game_map.all_not_solid_objects
+
+        self.player = self.game_map.player
 
     def control_player(self, key_pressed_is):
         if key_pressed_is[pygame.K_a]:
@@ -54,7 +62,6 @@ class GameProcess:
         else:
             self.player.control['attack'] = False
 
-
     # Игровой цикл
     def game(self):
         camera = Camera(self.settings)
@@ -70,13 +77,32 @@ class GameProcess:
             mouse_pos = pygame.mouse.get_pos()
 
             # Обновления
-            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera)
-            self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera)
-            self.all_bullets_blue.update(self.all_characters_red)
-            self.all_bullets_red.update(self.all_characters_blue)
+            self.all_castle_blue.update()
+            self.all_castle_red.update()
+            self.all_tower_blue.update()
+            self.all_tower_red.update()
+            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
+            self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects)
+            self.all_bullets_blue.update(self.all_characters_red, self.all_castle_red,
+                                         self.all_tower_red, self.all_solid_objects)
+            self.all_bullets_red.update(self.all_characters_blue, self.all_castle_blue,
+                                        self.all_tower_blue, self.all_solid_objects)
+
             if self.player:
                 self.control_player(key_pressed_is)
                 camera.update(self.player)
+            for sprite in self.all_not_solid_objects:
+                camera.apply(sprite)
+            for sprite in self.all_solid_objects:
+                camera.apply(sprite)
+            for sprite in self.all_castle_blue:
+                camera.apply(sprite)
+            for sprite in self.all_castle_red:
+                camera.apply(sprite)
+            for sprite in self.all_tower_blue:
+                camera.apply(sprite)
+            for sprite in self.all_tower_red:
+                camera.apply(sprite)
             for sprite in self.all_characters_blue:
                 camera.apply(sprite)
             for sprite in self.all_characters_red:
@@ -88,6 +114,12 @@ class GameProcess:
 
             # Отрисовка
             self.screen.fill('white')
+            self.all_not_solid_objects.draw(self.screen)
+            self.all_solid_objects.draw(self.screen)
+            self.all_castle_blue.draw(self.screen)
+            self.all_castle_red.draw(self.screen)
+            self.all_tower_blue.draw(self.screen)
+            self.all_tower_red.draw(self.screen)
             self.all_characters_blue.draw(self.screen)
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)

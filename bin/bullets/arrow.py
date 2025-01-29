@@ -1,5 +1,4 @@
 import math
-
 import pygame.sprite
 
 
@@ -49,7 +48,6 @@ class Arrow(pygame.sprite.Sprite):
             self.direction_x -= offset_x
         if 85 < angle < 90:
             self.direction_x -= offset_x / 3
-        # print(angle)
 
         angle = math.degrees(math.atan2(-self.direction_y, self.direction_x))
         self.image = pygame.transform.rotate(self.original_image, angle)
@@ -61,13 +59,36 @@ class Arrow(pygame.sprite.Sprite):
         self.direction_y /= length
         self.audio_player.play_sound('resources/sounds/firing the arrow.mp3')
 
-    def update(self, enemy):
-        for e in enemy:
+    def update(self, enemy, castle_enemy, tower_enemy, solid_objects):
+        for e in castle_enemy:
             if pygame.sprite.collide_mask(self, e):
-                e.get_damage(self.damage)
+                if e.health > 0:
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
+
+        for e in tower_enemy:
+            if pygame.sprite.collide_mask(self, e):
+                if e.health > 0:
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
+
+        for s in solid_objects:
+            if pygame.sprite.collide_mask(self, s):
                 self.destroy()
                 self.time = self.time_health
                 return
+
+        for e in enemy:
+            if pygame.sprite.collide_mask(self, e):
+                if e.health > 0:
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
 
         self.time += 1
         if self.time > self.time_health:

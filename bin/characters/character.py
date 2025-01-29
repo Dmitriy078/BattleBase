@@ -1,10 +1,8 @@
-from os import write
-
 import pygame.sprite
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, res, settings, audio_player, name, pos=(0,0)):
+    def __init__(self, res, settings, audio_player, name, pos=(0, 0)):
         super().__init__()
         self.res = res
         self.settings = settings
@@ -19,6 +17,7 @@ class Character(pygame.sprite.Sprite):
 
         self.image = self.res.textures[name][self.direction][self.status]['frames'][self.current_frame]
         self.rect = self.image.get_rect()
+
         self.x, self.y = self.rect.x, self.rect.y = pos
 
         self.health = 100
@@ -26,8 +25,6 @@ class Character(pygame.sprite.Sprite):
         self.damage_time_i = 0
         self.speed_x = self.settings.fps // 30 * (self.settings.w // 800)
         self.speed_y = self.settings.fps // 30 * (self.settings.h // 600)
-        print(self.speed_y)
-        print(self.speed_x)
 
         self.control = {
             'up': False,
@@ -39,7 +36,7 @@ class Character(pygame.sprite.Sprite):
 
         self.bullet = None
 
-    def update(self, mouse_pos, all_bullets, camera):
+    def update(self, mouse_pos, all_bullets, camera, solid_objects):
         self.time += 1
 
         if self.damage_time_i:
@@ -72,10 +69,12 @@ class Character(pygame.sprite.Sprite):
         if self.health > 0:
             if self.control['up']:
                 self.y -= self.speed_y
+
                 if self.status != 'attack':
                     self.status = 'walk'
             elif self.control['down']:
                 self.y += self.speed_y
+
                 if self.status != 'attack':
                     self.status = 'walk'
 
@@ -89,6 +88,29 @@ class Character(pygame.sprite.Sprite):
                 self.direction = 'right'
                 if self.status != 'attack':
                     self.status = 'walk'
+
+            collide = pygame.sprite.spritecollideany(self, solid_objects)
+            if collide:
+                if self.rect.colliderect(collide.rect):
+                    # Определение расстояний между границами спрайта и границами коллидера
+                    right_distance = collide.rect.left - self.rect.right  # расстояние до левой грани коллайдера
+                    left_distance = collide.rect.right - self.rect.left  # расстояние до правой грани коллайдера
+                    bottom_distance = collide.rect.top - self.rect.bottom  # расстояние до верхней грани коллайдера
+                    top_distance = collide.rect.bottom - self.rect.top  # расстояние до нижней грани коллайдера
+
+                    # Определение минимального расстояния столкновения
+                    min_distance = min(abs(right_distance), abs(left_distance), abs(bottom_distance), abs(top_distance))
+
+                    if min_distance == abs(right_distance):  # Столкновение справа
+                        self.x += right_distance  # Сдвигаем спрайт влево
+                    elif min_distance == abs(left_distance):  # Столкновение слева
+                        self.x += left_distance  # Сдвигаем спрайт вправо
+
+                    if min_distance == abs(bottom_distance):  # Столкновение снизу
+                        self.y += bottom_distance  # Сдвигаем спрайт вверх
+                    elif min_distance == abs(top_distance):  # Столкновение сверху
+                        self.y += top_distance  # Сдвигаем спрайт вниз
+
 
             if self.control['attack']:
                 if self.status != 'attack':
