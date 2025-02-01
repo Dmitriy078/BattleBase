@@ -153,3 +153,4 @@ class MainMenu:
         s = Settings()
         set_show = SettingsMenu(self.settings, s.resolution, self.audio, self.screen)
         set_show.set_display()
+[]
