@@ -76,6 +76,7 @@ class GameProcess:
             key_pressed_is = pygame.key.get_pressed()
             mouse_pos = pygame.mouse.get_pos()
 
+
             # Обновления
             self.all_castle_blue.update()
             self.all_castle_red.update()
@@ -113,7 +114,7 @@ class GameProcess:
                 camera.apply(sprite)
 
             # Отрисовка
-            self.screen.fill('white')
+            self.screen.fill('black')
             self.all_not_solid_objects.draw(self.screen)
             self.all_solid_objects.draw(self.screen)
             self.all_castle_blue.draw(self.screen)
