@@ -65,6 +65,7 @@ class GameProcess:
     # Игровой цикл
     def game(self):
         camera = Camera(self.settings)
+        show_rect_player = False
         while self.running:
             # Обработка событий
             for event in pygame.event.get():
@@ -80,8 +81,8 @@ class GameProcess:
             # Обновления
             self.all_castle_blue.update()
             self.all_castle_red.update()
-            self.all_tower_blue.update()
-            self.all_tower_red.update()
+            self.all_tower_blue.update(self.all_bullets_blue, self.all_solid_objects, self.all_characters_red)
+            self.all_tower_red.update(self.all_bullets_red, self.all_solid_objects, self.all_characters_blue)
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
             self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects)
             self.all_bullets_blue.update(self.all_characters_red, self.all_castle_red,
@@ -125,6 +126,11 @@ class GameProcess:
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
             self.all_bullets_red.draw(self.screen)
+
+            # Отрисовка бордюра игрока
+            if show_rect_player:
+                player_rect = self.player.rect  # Предполагается, что у игрока есть атрибут rect
+                pygame.draw.rect(self.screen, (255, 0, 0), player_rect, 2)  # Рисуем красный бордюр (толщина 2)
 
             # Отображение
             pygame.display.flip()

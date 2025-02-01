@@ -60,36 +60,6 @@ class Arrow(pygame.sprite.Sprite):
         self.audio_player.play_sound('resources/sounds/firing the arrow.mp3')
 
     def update(self, enemy, castle_enemy, tower_enemy, solid_objects):
-        for e in castle_enemy:
-            if pygame.sprite.collide_mask(self, e):
-                if e.health > 0:
-                    e.get_damage(self.damage)
-                    self.destroy()
-                    self.time = self.time_health
-                    return
-
-        for e in tower_enemy:
-            if pygame.sprite.collide_mask(self, e):
-                if e.health > 0:
-                    e.get_damage(self.damage)
-                    self.destroy()
-                    self.time = self.time_health
-                    return
-
-        for s in solid_objects:
-            if pygame.sprite.collide_mask(self, s):
-                self.destroy()
-                self.time = self.time_health
-                return
-
-        for e in enemy:
-            if pygame.sprite.collide_mask(self, e):
-                if e.health > 0:
-                    e.get_damage(self.damage)
-                    self.destroy()
-                    self.time = self.time_health
-                    return
-
         self.time += 1
         if self.time > self.time_health:
             self.destroy()
@@ -99,6 +69,40 @@ class Arrow(pygame.sprite.Sprite):
             self.y += self.direction_y
 
             self.rect.x, self.rect.y = int(self.x), int(self.y)
+
+        for e in castle_enemy:
+            if pygame.sprite.collide_mask(self, e):
+                if e.health > 0:
+                    print(e)
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
+
+        for e in tower_enemy:
+            if pygame.sprite.collide_mask(self, e):
+                if e.health > 0:
+                    print(e)
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
+
+        for s in solid_objects:
+            if pygame.sprite.collide_mask(self, s):
+                print(s, self.x, self.y, self.rect.x, self.rect.y,  s.rect.x, s.rect.y)
+                self.destroy()
+                self.time = self.time_health
+                return
+
+        for e in enemy:
+            if pygame.sprite.collide_mask(self, e):
+                if e.health > 0:
+                    print(e)
+                    e.get_damage(self.damage)
+                    self.destroy()
+                    self.time = self.time_health
+                    return
 
     def destroy(self):
         self.audio_player.play_sound('resources/sounds/arrow hit.mp3')

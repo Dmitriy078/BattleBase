@@ -18,7 +18,6 @@ class GameMap:
         self.audio = audio
         self.grid = None
 
-
         self.all_bullets_blue = pygame.sprite.Group()
         self.all_characters_blue = pygame.sprite.Group()
         self.all_castle_blue = pygame.sprite.Group()
@@ -75,10 +74,10 @@ class GameMap:
 
                         if 'tower_red' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Tower(self.registry.copse['tower_red'],
-                                           self.registry.copse['tower_red_destroyed'],
-                                           self.settings,
-                                           pos)
+                            block = Tower(self.registry, self.registry.copse['tower_red'],
+                                          self.registry.copse['tower_red_destroyed'],
+                                          self.settings, self.audio,
+                                          pos)
                             self.all_tower_red.add(block)
 
                         if 'archer' in e:
@@ -107,10 +106,10 @@ class GameMap:
 
                         if 'tower_blue' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Tower(self.registry.copse['tower_blue'],
-                                           self.registry.copse['tower_blue_destroyed'],
-                                           self.settings,
-                                           pos)
+                            block = Tower(self.registry, self.registry.copse['tower_blue'],
+                                          self.registry.copse['tower_blue_destroyed'],
+                                          self.settings, self.audio,
+                                          pos)
                             self.all_tower_blue.add(block)
 
                         if 'archer' in e:
