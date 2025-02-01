@@ -12,8 +12,7 @@ class MainMenu:
         self.w, self.h = self.settings.resolution
         self.registry = registry
         self.audio = audio
-        self.audio.set_sound_volume(self.settings.sound//100)
-        print(self.settings.sound//100)
+        self.audio.set_sound_volume(self.settings.sound/100)
         self.audio.play_music('resources/music/main_menu.mp3')
 
 
