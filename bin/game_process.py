@@ -32,6 +32,8 @@ class GameProcess:
         self.all_bullets_red = self.game_map.all_bullets_red
         self.all_characters_red = self.game_map.all_characters_red
 
+        self.all_tree = self.game_map.all_tree
+
         self.all_solid_objects = self.game_map.all_solid_objects
         self.all_not_solid_objects = self.game_map.all_not_solid_objects
 
@@ -82,6 +84,7 @@ class GameProcess:
             # Обновления
             self.all_castle_blue.update()
             self.all_castle_red.update()
+            self.all_tree.update()
             self.all_tower_blue.update(self.all_bullets_blue, self.all_solid_objects, self.all_characters_red)
             self.all_tower_red.update(self.all_bullets_red, self.all_solid_objects, self.all_characters_blue)
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
@@ -119,6 +122,7 @@ class GameProcess:
             self.screen.fill('black')
             self.all_not_solid_objects.draw(self.screen)
             self.all_solid_objects.draw(self.screen)
+            self.all_tree.draw(self.screen)
             self.all_castle_blue.draw(self.screen)
             self.all_castle_red.draw(self.screen)
             self.all_tower_blue.draw(self.screen)

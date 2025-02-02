@@ -178,7 +178,6 @@ class Registry:
 
         # тут загружаем остальных
 
-
     # Функция для загрузки снарядов
     def load_textures_bullets(self):
         self.t_bullets['arrow'] = pygame.transform.scale(self.load_image('bullets/arrow.png', True),
@@ -193,6 +192,10 @@ class Registry:
         frames = self.load_image(f'terrain/flat.png', True)
         frames = self.cut_sheet(frames, 10, 4)
         self.terrain['flat'] = frames
+
+        frames = self.load_image(f'copse/tree.png', True)
+        frames = self.cut_sheet(frames, 4, 2)
+        self.terrain['tree'] = frames
 
     # функция для загрузки текстур строений
     def load_textures_building(self):

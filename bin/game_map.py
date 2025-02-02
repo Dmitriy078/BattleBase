@@ -31,6 +31,8 @@ class GameMap:
         self.all_solid_objects = pygame.sprite.Group()
         self.all_not_solid_objects = pygame.sprite.Group()
 
+        self.all_tree = pygame.sprite.Group()
+
         self.player = None
         self.player_character = 'archer'
 
@@ -61,6 +63,12 @@ class GameMap:
                         temp = e.split('_')
                         pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
                         block = Block(self.registry.terrain['flat'][int(temp[1])], pos)
+                        self.all_not_solid_objects.add(block)
+
+                    if 'tree' in e:
+                        temp = e.split('_')
+                        pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                        block = Block(self.registry.terrain['tree'][int(temp[1])], pos)
                         self.all_not_solid_objects.add(block)
 
                     if 'red' in e:
