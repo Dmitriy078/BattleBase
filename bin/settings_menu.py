@@ -182,8 +182,8 @@ class SettingsMenu:
                     is_click = True
                 if event.type == pygame.MOUSEBUTTONUP:
                     is_click = False
-            self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_exit.draw(self.screen)
+            self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
 
             self.but_apply.draw(self.screen)
             self.but_apply.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки

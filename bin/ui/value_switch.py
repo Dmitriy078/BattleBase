@@ -14,7 +14,7 @@ class ValueSwitch:
             self.pos_value = 0
         else:
             self.pos_value = -1
-
+        self.call = None
         if self.pos_value in range(len(self.values)):
             text = self.values[self.pos_value]
         else:
@@ -55,6 +55,8 @@ class ValueSwitch:
             self.pos_value += 1
         if self.pos_value >= len(self.values):
             self.pos_value = 0
+        if self.call:
+            self.call()
 
     # Получение значения
     def get_value(self):

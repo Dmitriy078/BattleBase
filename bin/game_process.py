@@ -7,7 +7,7 @@ CELL_SIZE = 50
 
 
 class GameProcess:
-    def __init__(self, settings, registry, audio, screen):
+    def __init__(self, settings, registry, audio, screen, lvl):
         self.settings = settings
         self.registry = registry
         self.audio = audio
@@ -15,9 +15,10 @@ class GameProcess:
         self.size = self.width, self.height = self.settings.resolution
         self.screen = screen
         self.running = True
+        self.lvl = lvl
         self.clock = pygame.time.Clock()
 
-        self.game_map = GameMap(self.registry, self.settings, self.audio, 'map_road_2')
+        self.game_map = GameMap(self.registry, self.settings, self.audio, self.lvl)
 
         self.all_bullets_blue = self.game_map.all_bullets_blue
         self.all_characters_blue = self.game_map.all_characters_blue
