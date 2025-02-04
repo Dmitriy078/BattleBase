@@ -21,7 +21,6 @@ class Registry:
         self.load_textures_characters()
         self.load_textures_bullets()
         self.load_textures_terrain()
-        self.load_textures_bullets()
         self.load_textures_building()
         self.load_textures_greenery()
 
@@ -196,11 +195,12 @@ class Registry:
 
     def load_textures_greenery(self):
         frames = self.load_image(f'copse/tree.png', True)
-        frames = self.cut_sheet(frames, 4, 2)
-        self.copse['tree'] = frames
+        frames = self.cut_sheet(frames, 4, 3)
+        self.copse['tree'] = frames[0:4]
 
         frames = self.load_image(f'copse/bush.png', True)
-        frames = self.cut_sheet(frames, 1, 1)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
+        # frames = self.cut_sheet(frames, 1, 1)
         self.copse['bush'] = frames
 
         frames = self.load_image(f'copse/indicator_red.png', True)

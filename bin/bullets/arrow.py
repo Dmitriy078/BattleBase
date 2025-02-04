@@ -73,7 +73,6 @@ class Arrow(pygame.sprite.Sprite):
         for e in castle_enemy:
             if pygame.sprite.collide_mask(self, e):
                 if e.health > 0:
-                    print(e)
                     e.get_damage(self.damage)
                     self.destroy()
                     self.time = self.time_health
@@ -82,7 +81,6 @@ class Arrow(pygame.sprite.Sprite):
         for e in tower_enemy:
             if pygame.sprite.collide_mask(self, e):
                 if e.health > 0:
-                    print(e)
                     e.get_damage(self.damage)
                     self.destroy()
                     self.time = self.time_health
@@ -90,7 +88,6 @@ class Arrow(pygame.sprite.Sprite):
 
         for s in solid_objects:
             if pygame.sprite.collide_mask(self, s):
-                print(s, self.x, self.y, self.rect.x, self.rect.y,  s.rect.x, s.rect.y)
                 self.destroy()
                 self.time = self.time_health
                 return
@@ -98,7 +95,6 @@ class Arrow(pygame.sprite.Sprite):
         for e in enemy:
             if pygame.sprite.collide_mask(self, e):
                 if e.health > 0:
-                    print(e)
                     e.get_damage(self.damage)
                     self.destroy()
                     self.time = self.time_health

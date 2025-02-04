@@ -72,15 +72,13 @@ class GameMap:
                         self.all_not_solid_objects.add(block)
 
                     if 'tree' in e:
-                        temp = e.split('_')
                         pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        block = Tree(self.registry.terrain['tree'][int(temp[1])], pos)
+                        block = Tree(self.registry.copse['tree'], self.settings, pos)
                         self.all_tree.add(block)
 
                     if 'bush' in e:
-                        temp = e.split('_')
                         pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        block = Bush(self.registry.terrain['bush'][int(temp[1])], pos)
+                        block = Bush(self.registry.copse['bush'], pos)
                         self.all_bush.add(block)
 
                     if 'red' in e:
