@@ -1,8 +1,8 @@
 import pygame.sprite
 
 
-# класс деревьев
-class Tree(pygame.sprite.Sprite):
+# класс кустов
+class Bush(pygame.sprite.Sprite):
     def __init__(self, texture, texture_destroy, settings):
         super().__init__()
         self.settings = settings

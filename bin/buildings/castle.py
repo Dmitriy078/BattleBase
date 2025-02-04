@@ -1,6 +1,7 @@
 import pygame.sprite
 
 
+# класс замков
 class Castle(pygame.sprite.Sprite):
     def __init__(self, texture, texture_destroy, settings, pos=(0, 0)):
         super().__init__()

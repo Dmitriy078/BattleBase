@@ -23,6 +23,7 @@ class Registry:
         self.load_textures_terrain()
         self.load_textures_bullets()
         self.load_textures_building()
+        self.load_textures_greenery()
 
     def load_textures_background_main_menu(self):
         self.bg_main_menu.clear()
@@ -193,9 +194,22 @@ class Registry:
         frames = self.cut_sheet(frames, 10, 4)
         self.terrain['flat'] = frames
 
+    def load_textures_greenery(self):
         frames = self.load_image(f'copse/tree.png', True)
         frames = self.cut_sheet(frames, 4, 2)
-        self.terrain['tree'] = frames
+        self.copse['tree'] = frames
+
+        frames = self.load_image(f'copse/bush.png', True)
+        frames = self.cut_sheet(frames, 1, 1)
+        self.copse['bush'] = frames
+
+        frames = self.load_image(f'copse/indicator_red.png', True)
+        frames = self.cut_sheet(frames, 1, 1)
+        self.copse['indicator_red'] = frames
+
+        frames = self.load_image(f'copse/indicator_blue.png', True)
+        frames = self.cut_sheet(frames, 1, 1)
+        self.copse['indicator_blue'] = frames
 
     # функция для загрузки текстур строений
     def load_textures_building(self):

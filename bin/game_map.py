@@ -8,6 +8,9 @@ from bin.buildings.tower import Tower
 from bin.characters.archer import Archer
 from bin.characters.support import Support
 from bin.characters.swordsman import Swordsman
+from bin.greenery.bush import Bush
+from bin.greenery.indicator import Indicator
+from bin.greenery.tree import Tree
 
 
 class GameMap:
@@ -32,6 +35,9 @@ class GameMap:
         self.all_not_solid_objects = pygame.sprite.Group()
 
         self.all_tree = pygame.sprite.Group()
+        self.all_indicator_red = pygame.sprite.Group()
+        self.all_indicator_blue = pygame.sprite.Group()
+        self.all_bush = pygame.sprite.Group()
 
         self.player = None
         self.player_character = 'archer'
@@ -68,8 +74,14 @@ class GameMap:
                     if 'tree' in e:
                         temp = e.split('_')
                         pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                        block = Block(self.registry.terrain['tree'][int(temp[1])], pos)
-                        self.all_not_solid_objects.add(block)
+                        block = Tree(self.registry.terrain['tree'][int(temp[1])], pos)
+                        self.all_tree.add(block)
+
+                    if 'bush' in e:
+                        temp = e.split('_')
+                        pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                        block = Bush(self.registry.terrain['bush'][int(temp[1])], pos)
+                        self.all_bush.add(block)
 
                     if 'red' in e:
                         if 'castle_red' in e:
@@ -87,6 +99,11 @@ class GameMap:
                                           self.settings, self.audio,
                                           pos)
                             self.all_tower_red.add(block)
+
+                        if 'indicator' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Indicator(self.registry, self.settings, self.audio, 'indicator_red', pos)
+                            self.all_indicator_red.add(block)
 
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
@@ -119,6 +136,11 @@ class GameMap:
                                           self.settings, self.audio,
                                           pos)
                             self.all_tower_blue.add(block)
+
+                        if 'indicator' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Indicator(self.registry, self.settings, self.audio, 'indicator_blue', pos)
+                            self.all_indicator_red.add(block)
 
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])

@@ -3,6 +3,7 @@ import pygame.sprite
 from bin.bullets.arrow import Arrow
 
 
+# класс башен
 class Tower(pygame.sprite.Sprite):
     def __init__(self, res, texture, texture_destroy, settings, audio, pos=(0, 0)):
         super().__init__()

@@ -1,6 +1,7 @@
 import pygame.sprite
 
 
+# класс героев
 class Character(pygame.sprite.Sprite):
     def __init__(self, res, settings, audio_player, name, pos=(0, 0)):
         super().__init__()
@@ -36,6 +37,7 @@ class Character(pygame.sprite.Sprite):
 
         self.bullet = None
 
+    # обнавление
     def update(self, mouse_pos, all_bullets, camera, solid_objects):
         self.time += 1
 
@@ -111,7 +113,6 @@ class Character(pygame.sprite.Sprite):
                     elif min_distance == abs(top_distance):  # Столкновение сверху
                         self.y += top_distance  # Сдвигаем спрайт вниз
 
-
             if self.control['attack']:
                 if self.status != 'attack':
                     self.status = 'attack'
@@ -124,10 +125,12 @@ class Character(pygame.sprite.Sprite):
 
         self.rect.x, self.rect.y = int(self.x), int(self.y)
 
+    # поломка
     def get_damage(self, damage):
         self.health -= damage
         self.damage_time_i = 1
 
+    # повреждение изображения
     def get_damage_image(self, image):
         damage_image = image.copy()
         for x in range(damage_image.get_width()):

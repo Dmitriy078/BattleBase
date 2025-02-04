@@ -6,7 +6,8 @@ from bin.characters.character import Character
 class Archer(Character):
     def __init__(self, res, settings, audio_player, name='archer_blue', pos=(0,0)):
         super().__init__(res, settings, audio_player, name=name, pos=pos)
-        
+
+    # обнавление
     def update(self, mouse_pos, all_bullets, camera, solid_objects):
         super().update(mouse_pos, all_bullets, camera, solid_objects)
 

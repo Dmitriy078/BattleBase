@@ -33,6 +33,9 @@ class GameProcess:
         self.all_characters_red = self.game_map.all_characters_red
 
         self.all_tree = self.game_map.all_tree
+        self.all_indicator_red = self.game_map.all_indicator_red
+        self.all_indicator_blue = self.game_map.all_indicator_blue
+        self.all_bush = self.game_map.all_bush
 
         self.all_solid_objects = self.game_map.all_solid_objects
         self.all_not_solid_objects = self.game_map.all_not_solid_objects
@@ -85,6 +88,9 @@ class GameProcess:
             self.all_castle_blue.update()
             self.all_castle_red.update()
             self.all_tree.update()
+            self.all_indicator_red.update()
+            self.all_indicator_blue.update()
+            self.all_bush.update()
             self.all_tower_blue.update(self.all_bullets_blue, self.all_solid_objects, self.all_characters_red)
             self.all_tower_red.update(self.all_bullets_red, self.all_solid_objects, self.all_characters_blue)
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
@@ -123,6 +129,9 @@ class GameProcess:
             self.all_not_solid_objects.draw(self.screen)
             self.all_solid_objects.draw(self.screen)
             self.all_tree.draw(self.screen)
+            self.all_indicator_red.draw(self.screen)
+            self.all_indicator_blue.draw(self.screen)
+            self.all_bush.draw(self.screen)
             self.all_castle_blue.draw(self.screen)
             self.all_castle_red.draw(self.screen)
             self.all_tower_blue.draw(self.screen)
@@ -134,8 +143,8 @@ class GameProcess:
 
             # Отрисовка бордюра игрока
             if show_rect_player:
-                player_rect = self.player.rect  # Предполагается, что у игрока есть атрибут rect
-                pygame.draw.rect(self.screen, (255, 0, 0), player_rect, 2)  # Рисуем красный бордюр (толщина 2)
+                player_rect = self.player.rect
+                pygame.draw.rect(self.screen, (255, 0, 0), player_rect, 2)
 
             # Отображение
             pygame.display.flip()
