@@ -200,15 +200,14 @@ class Registry:
 
         frames = self.load_image(f'copse/bush.png', True)
         frames = pygame.transform.scale(frames, self.settings.cell_size)
-        # frames = self.cut_sheet(frames, 1, 1)
         self.copse['bush'] = frames
 
         frames = self.load_image(f'copse/indicator_red.png', True)
-        frames = self.cut_sheet(frames, 1, 1)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
         self.copse['indicator_red'] = frames
 
         frames = self.load_image(f'copse/indicator_blue.png', True)
-        frames = self.cut_sheet(frames, 1, 1)
+        frames = pygame.transform.scale(frames, self.settings.cell_size)
         self.copse['indicator_blue'] = frames
 
     # функция для загрузки текстур строений

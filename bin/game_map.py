@@ -98,10 +98,10 @@ class GameMap:
                                           pos)
                             self.all_tower_red.add(block)
 
-                        if 'indicator' in e:
+                        if 'indicator_red' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Indicator(self.registry, self.settings, self.audio, 'indicator_red', pos)
-                            self.all_indicator_red.add(block)
+                            block = Indicator(self.registry.copse['indicator_red'], pos)
+                            self.all_bush.add(block)
 
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
@@ -135,10 +135,10 @@ class GameMap:
                                           pos)
                             self.all_tower_blue.add(block)
 
-                        if 'indicator' in e:
+                        if 'indicator_blue' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
-                            block = Indicator(self.registry, self.settings, self.audio, 'indicator_blue', pos)
-                            self.all_indicator_red.add(block)
+                            block = Indicator(self.registry.copse['indicator_blue'], pos)
+                            self.all_bush.add(block)
 
                         if 'archer' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
