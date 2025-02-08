@@ -1,7 +1,7 @@
 import math
 import pygame.sprite
 
-
+# класс стрелы
 class Arrow(pygame.sprite.Sprite):
     def __init__(self, res, settings, audio_player, name='arrow', pos=(0, 0), target_point=(0, 0)):
         super().__init__()

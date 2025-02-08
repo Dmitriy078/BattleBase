@@ -13,6 +13,7 @@ from bin.greenery.indicator import Indicator
 from bin.greenery.tree import Tree
 
 
+# класс игровой карты
 class GameMap:
     def __init__(self, registry, settings, audio, level):
         self.level = level

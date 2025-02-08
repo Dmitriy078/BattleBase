@@ -1,6 +1,7 @@
 import pygame.sprite
 
 
+# класс игрового плока
 class Block(pygame.sprite.Sprite):
     def __init__(self, texture, pos=(0, 0)):
         super().__init__()

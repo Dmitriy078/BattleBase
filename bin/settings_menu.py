@@ -5,6 +5,7 @@ from bin.ui.value_switch import ValueSwitch
 from bin.ui.text import Text
 
 
+# класс настройки меню
 class SettingsMenu:
     def __init__(self, settings, resolution, audio, screen):
         self.settings = settings

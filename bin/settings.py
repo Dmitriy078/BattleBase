@@ -3,6 +3,7 @@ import os.path
 import pygame.display
 
 
+# класс настроек - параметров
 class Settings:
     def __init__(self):
         self.display = 0

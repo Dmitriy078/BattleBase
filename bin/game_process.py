@@ -6,6 +6,7 @@ from bin.game_map import GameMap
 CELL_SIZE = 50
 
 
+# класс игрового процесса
 class GameProcess:
     def __init__(self, settings, registry, audio, screen, lvl):
         self.settings = settings

@@ -7,7 +7,7 @@ from bin.ui.button import Button
 from bin.ui.value_switch import ValueSwitch
 
 
-
+# класс главного меню
 class MainMenu:
     def __init__(self, settings, registry, audio, screen):
         self.settings = settings
