@@ -28,13 +28,12 @@ class Castle(pygame.sprite.Sprite):
                 self.damage_time_i += 1
                 if self.damage_time_i >= self.damage_time * 3:
                     self.kill()
-                    set_show = GameOver(self.settings)
-                    set_show.set_display()
+                    # set_show = GameOver(self.settings)
+                    # set_show.set_display()
 
         else:
             if self.damage_time_i:
                 self.damage_time_i += 1
-
                 if self.damage_time_i >= self.damage_time:
                     self.image = self.image_orig
                     self.damage_time_i = 0

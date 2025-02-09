@@ -2,6 +2,7 @@ import pygame
 
 from bin.camera import Camera
 from bin.game_map import GameMap
+from bin.game_over import GameOver
 
 CELL_SIZE = 50
 
@@ -155,3 +156,39 @@ class GameProcess:
             # Отображение
             pygame.display.flip()
             self.clock.tick(60)
+
+        self.running = True
+        if self.player and len(self.all_castle_red) == 0:
+            print('jjj')
+            set_show = GameOver(self.settings, self.registry, self.audio, self.screen)
+            set_show.set_display()
+            print('k')
+            # while self.running:
+            #     self.screen.fill((0, 0, 0))
+            #     # Обработка событий
+            #     for event in pygame.event.get():
+            #         if event.type == pygame.QUIT:
+            #             self.running = False
+            #         if event.type == pygame.KEYDOWN:
+            #             if event.key == pygame.K_ESCAPE:
+            #                 self.running = False
+
+                # Отображение
+                # pygame.display.flip()
+                # self.clock.tick(60)
+        elif not self.player or self.player.health <= 0:
+            print("fnikdfnif")         
+            while self.running:
+                self.screen.fill((0, 0, 0))
+                # Обработка событий
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.running = False
+
+                # Отображение
+                pygame.display.flip()
+                self.clock.tick(60)
+
