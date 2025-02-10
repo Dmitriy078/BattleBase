@@ -161,10 +161,9 @@ class MainMenu:
                     self.frame_current = len(self.frames) - 1
                     right = True
                 time = 0
+
     def set_level(self):
         self.returned_lvl = self.returned_lvl[:-1] + self.level_game.get_value()
-
-
 
     def exit_game(self):
         self.running = False

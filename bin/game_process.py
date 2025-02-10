@@ -85,7 +85,6 @@ class GameProcess:
             key_pressed_is = pygame.key.get_pressed()
             mouse_pos = pygame.mouse.get_pos()
 
-
             # Обновления
             self.all_castle_blue.update()
             self.all_castle_red.update()
@@ -162,7 +161,6 @@ class GameProcess:
             print('jjj')
             set_show = GameOver(self.settings, self.registry, self.audio, self.screen)
             set_show.set_display()
-            print('k')
             # while self.running:
             #     self.screen.fill((0, 0, 0))
             #     # Обработка событий
