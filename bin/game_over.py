@@ -9,10 +9,11 @@ class GameOver:
         self.screen = screen
         self.registry = registry
         self.audio = audio
-        self.audio.set_sound_volume(self.settings.sound/100)
+        self.audio.set_sound_volume(self.settings.sound / 100)
         self.audio.play_music('resources/music/main_menu.mp3')
         self.running = True
         self.clock = pygame.time.Clock()
+
     def set_display(self):
         while self.running and not self.settings.reboot:
             self.screen.fill((0, 0, 0))
@@ -24,4 +25,6 @@ class GameOver:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
-
+            # Отображение
+            pygame.display.flip()
+            self.clock.tick(60)

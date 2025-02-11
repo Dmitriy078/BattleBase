@@ -2,7 +2,7 @@ import pygame
 
 from bin.camera import Camera
 from bin.game_map import GameMap
-from bin.game_over import GameOver
+from bin.ui.text import Text
 
 CELL_SIZE = 50
 
@@ -158,24 +158,38 @@ class GameProcess:
 
         self.running = True
         if self.player and len(self.all_castle_red) == 0:
-            print('jjj')
-            set_show = GameOver(self.settings, self.registry, self.audio, self.screen)
-            set_show.set_display()
-            # while self.running:
-            #     self.screen.fill((0, 0, 0))
-            #     # Обработка событий
-            #     for event in pygame.event.get():
-            #         if event.type == pygame.QUIT:
-            #             self.running = False
-            #         if event.type == pygame.KEYDOWN:
-            #             if event.key == pygame.K_ESCAPE:
-            #                 self.running = False
+            font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
+            text = Text(
+                texture=None,
+                text='Вы выиграли!',
+                x=self.settings.w // 2,
+                y=self.settings.h // 2,
+                width=self.settings.w * 0.4,
+                height=self.settings.h * 0.1,
+                text_color_rgb=(138, 9, 47),
+                font=font,
+                font_size=self.settings.w * self.settings.h // 75000,
+                center_text=True,
+                offset_text_x=0,
+                offset_text_y=0,
+            )
 
-                # Отображение
-                # pygame.display.flip()
-                # self.clock.tick(60)
+            while self.running:
+                self.screen.fill((0, 0, 0))
+                # Обработка событий
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.running = False
+
+                text.draw(self.screen)
+
+                # Отображение холста
+                pygame.display.flip()
+                self.clock.tick(60)
         elif not self.player or self.player.health <= 0:
-            print("fnikdfnif")         
             while self.running:
                 self.screen.fill((0, 0, 0))
                 # Обработка событий
@@ -189,4 +203,3 @@ class GameProcess:
                 # Отображение
                 pygame.display.flip()
                 self.clock.tick(60)
-
