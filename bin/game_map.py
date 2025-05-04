@@ -5,6 +5,7 @@ import pygame
 from bin.block import Block
 from bin.buildings.castle import Castle
 from bin.buildings.tower import Tower
+from bin.buildings.house import House
 from bin.characters.archer import Archer
 from bin.characters.support import Support
 from bin.characters.swordsman import Swordsman
@@ -26,11 +27,13 @@ class GameMap:
         self.all_characters_blue = pygame.sprite.Group()
         self.all_castle_blue = pygame.sprite.Group()
         self.all_tower_blue = pygame.sprite.Group()
+        self.all_house_blue = pygame.sprite.Group()
 
         self.all_bullets_red = pygame.sprite.Group()
         self.all_characters_red = pygame.sprite.Group()
         self.all_castle_red = pygame.sprite.Group()
         self.all_tower_red = pygame.sprite.Group()
+        self.all_house_rsd = pygame.sprite.Group()
 
         self.all_solid_objects = pygame.sprite.Group()
         self.all_not_solid_objects = pygame.sprite.Group()
@@ -99,6 +102,14 @@ class GameMap:
                                           pos)
                             self.all_tower_red.add(block)
 
+                        if 'house_red' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Tower(self.registry, self.registry.copse['house_red'],
+                                          self.registry.copse['house_red_destroyed'],
+                                          self.settings, self.audio,
+                                          pos)
+                            self.all_tower_red.add(block)
+
                         if 'indicator_red' in e:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
                             block = Indicator(self.registry.copse['indicator_red'], pos)
@@ -132,6 +143,14 @@ class GameMap:
                             pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
                             block = Tower(self.registry, self.registry.copse['tower_blue'],
                                           self.registry.copse['tower_blue_destroyed'],
+                                          self.settings, self.audio,
+                                          pos)
+                            self.all_tower_blue.add(block)
+
+                        if 'house_blue' in e:
+                            pos = (col * self.settings.cell_size[0], row * self.settings.cell_size[1])
+                            block = Tower(self.registry, self.registry.copse['house_blue'],
+                                          self.registry.copse['house_blue_destroyed'],
                                           self.settings, self.audio,
                                           pos)
                             self.all_tower_blue.add(block)

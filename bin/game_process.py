@@ -31,6 +31,9 @@ class GameProcess:
         self.all_tower_blue = self.game_map.all_tower_blue
         self.all_tower_red = self.game_map.all_tower_red
 
+        self.all_house_blue = self.game_map.all_house_blue
+        self.all_house_red = self.game_map.all_house_red
+
         self.all_bullets_red = self.game_map.all_bullets_red
         self.all_characters_red = self.game_map.all_characters_red
 
@@ -89,6 +92,8 @@ class GameProcess:
             self.all_castle_blue.update()
             self.all_castle_red.update()
             self.all_tree.update()
+            self.all_house_blue.update()
+            self.all_house_red.update()
             self.all_tower_blue.update(self.all_bullets_blue, self.all_solid_objects, self.all_characters_red)
             self.all_tower_red.update(self.all_bullets_red, self.all_solid_objects, self.all_characters_blue)
             self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
@@ -142,6 +147,8 @@ class GameProcess:
             self.all_castle_red.draw(self.screen)
             self.all_tower_blue.draw(self.screen)
             self.all_tower_red.draw(self.screen)
+            self.all_house_blue.draw(self.screen)
+            self.all_house_red.draw(self.screen)
             self.all_characters_blue.draw(self.screen)
             self.all_characters_red.draw(self.screen)
             self.all_bullets_blue.draw(self.screen)
