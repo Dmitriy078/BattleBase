@@ -33,7 +33,7 @@ class GameMap:
         self.all_characters_red = pygame.sprite.Group()
         self.all_castle_red = pygame.sprite.Group()
         self.all_tower_red = pygame.sprite.Group()
-        self.all_house_rsd = pygame.sprite.Group()
+        self.all_house_red = pygame.sprite.Group()
 
         self.all_solid_objects = pygame.sprite.Group()
         self.all_not_solid_objects = pygame.sprite.Group()
