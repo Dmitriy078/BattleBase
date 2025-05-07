@@ -89,19 +89,15 @@ class MainMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-        self.but_exit.call = self.exit_game
-        self.but_exit_first = pygame.image.load("resources/buttons/Button_Blue.png")
-        self.but_exit_press = pygame.image.load(
-            "resources/buttons/Button_Blue_Pressed.png")
-        self.level_game = ValueSwitch(
-            texture=self.but_exit_first,
-            texture_press=self.but_exit_press,
-            x=self.settings.w * 0.28,
-            y=self.settings.h * 0.71,
-            values=["1", "2", "3"],
-            select_value=str(self.settings.fps),
-            width=110,
-            height=70,
+        self.but_choice1 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='1',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
+            width=self.w // 7,
+            height=self.h // 11,
+            text_color_rgb=(138, 9, 47),
             font=font,
             font_size=self.w * self.h // 75000,
             center_text=True,
@@ -111,7 +107,67 @@ class MainMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-        self.level_game.call = self.set_level
+        self.but_choice1.call = self.set_level
+        self.but_choice2 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='2',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
+            width=self.w // 7,
+            height=self.h // 11,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_choice2.call = self.set_level
+        self.but_choice3 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='3',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
+            width=self.w // 7,
+            height=self.h // 11,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_choice3.call = self.set_level
+        self.but_exit_first = pygame.image.load("resources/buttons/Button_Blue.png")
+        self.but_exit_press = pygame.image.load(
+            "resources/buttons/Button_Blue_Pressed.png")
+        # self.level_game = ValueSwitch(
+        #     texture=self.but_exit_first,
+        #     texture_press=self.but_exit_press,
+        #     x=self.settings.w * 0.28,
+        #     y=self.settings.h * 0.71,
+        #     values=["1", "2", "3"],
+        #     select_value=str(self.settings.fps),
+        #     width=110,
+        #     height=70,
+        #     font=font,
+        #     font_size=self.w * self.h // 75000,
+        #     center_text=True,
+        #     offset_text_x=5,
+        #     offset_text_y=10,
+        #     offset_text_press_x=2,
+        #     offset_text_press_y=2,
+        #     audio_player=self.audio
+        # )
+        # self.level_game.call = self.set_level
     def show_menu(self):
         clock = pygame.time.Clock()
         time = 0
@@ -140,8 +196,12 @@ class MainMenu:
             self.but_settings.draw(self.screen)  # Отрисовка кнопки
             self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_exit.draw(self.screen)  # Отрисовка кнопки
-            self.level_game.draw(self.screen)
-            self.level_game.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice1.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice1.draw(self.screen)
+            # self.but_choice2.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice2.draw(self.screen)
+            # self.but_choice3.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice3.draw(self.screen)
 
             pygame.display.update()
 
