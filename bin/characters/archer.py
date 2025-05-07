@@ -1,5 +1,6 @@
 from bin.bullets.arrow import Arrow
 from bin.characters.character import Character
+from bin.game_over import GameOver
 
 
 # класс лучника
