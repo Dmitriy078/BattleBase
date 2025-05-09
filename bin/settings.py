@@ -9,7 +9,8 @@ class Settings:
         self.display = 0
         self.resolutions = pygame.display.list_modes(display=self.display)
         self.full_screen_mode = False
-        self.sound = 60
+        self.sound_volume = 60
+        self.music_volume = 60
         if (1600, 900) in self.resolutions:
             self.resolution = (1600, 900)
         else:
@@ -43,8 +44,10 @@ class Settings:
                         self.full_screen_mode = True
                     else:
                         self.full_screen_mode = False
-                elif key == "s_volume":
-                    self.sound = int(value)
+                elif key == "sound_volume":
+                    self.sound_volume = int(value)
+                elif key == "music_volume":
+                    self.music_volume = int(value)
                 elif key == "fps":
                     self.fps = int(self.fps)
 
@@ -56,6 +59,7 @@ class Settings:
             data = f'''name_parameter;value
 full_screen_mode;{self.full_screen_mode}
 resolution;{self.w},{self.h}
-s_volume;{self.sound}
+sound_volume;{self.sound_volume}
+music_volume;{self.music_volume}
 fps;{self.fps}'''
             file.write(data)

@@ -14,7 +14,8 @@ class MainMenu:
         self.w, self.h = self.settings.resolution
         self.registry = registry
         self.audio = audio
-        self.audio.set_sound_volume(self.settings.sound/100)
+        self.audio.set_sound_volume(self.settings.sound_volume / 100)
+        self.audio.set_music_volume(self.settings.music_volume / 100)
         self.audio.play_music('resources/music/main_menu.mp3')
 
         self.frames = self.registry.bg_main_menu
@@ -36,10 +37,10 @@ class MainMenu:
             texture=button_texture,
             texture_press=button_texture_press,
             text='play',
-            x=self.w // 2.5,
-            y=self.h // 2,
-            width=self.w // 7,
-            height=self.h // 11,
+            x=self.w * 0.4,
+            y=self.h * 0.5,
+            width=self.w * 0.2,
+            height=self.h * 0.1,
             text_color_rgb=(138, 9, 47),
             font=font,
             font_size=self.w * self.h // 75000,
@@ -56,10 +57,10 @@ class MainMenu:
             texture=button_texture,
             texture_press=button_texture_press,
             text='settings',
-            x=self.w // 2.5,
-            y=self.h // 1.6,
-            width=self.w // 7,
-            height=self.h // 11,
+            x=self.w * 0.4,
+            y=self.h * 0.65,
+            width=self.w * 0.2,
+            height=self.h * 0.1,
             text_color_rgb=(138, 9, 47),
             font=font,
             font_size=self.w * self.h // 75000,
@@ -75,8 +76,27 @@ class MainMenu:
             texture=button_texture,
             texture_press=button_texture_press,
             text='exit',
-            x=self.w // 2.5,
-            y=self.h // 1.33,
+            x=self.w * 0.4,
+            y=self.h * 0.8,
+            width=self.w * 0.2,
+            height=self.h * 0.1,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_exit.call = self.exit_game
+        self.but_choice1 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='1',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
             width=self.w // 7,
             height=self.h // 11,
             text_color_rgb=(138, 9, 47),
@@ -89,19 +109,57 @@ class MainMenu:
             offset_text_press_y=2,
             audio_player=self.audio
         )
-        self.but_exit.call = self.exit_game
+        self.but_choice1.call = self.set_level
+        self.but_choice2 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='2',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
+            width=self.w // 7,
+            height=self.h // 11,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_choice2.call = self.set_level
+        self.but_choice3 = Button(
+            texture=button_texture,
+            texture_press=button_texture_press,
+            text='3',
+            x=self.w // 3.5,
+            y=self.h // 2.33,
+            width=self.w // 7,
+            height=self.h // 11,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.w * self.h // 75000,
+            center_text=True,
+            offset_text_x=5,
+            offset_text_y=10,
+            offset_text_press_x=2,
+            offset_text_press_y=2,
+            audio_player=self.audio
+        )
+        self.but_choice3.call = self.set_level
         self.but_exit_first = pygame.image.load("resources/buttons/Button_Blue.png")
         self.but_exit_press = pygame.image.load(
             "resources/buttons/Button_Blue_Pressed.png")
         self.level_game = ValueSwitch(
-            texture=self.but_exit_first,
-            texture_press=self.but_exit_press,
-            x=self.settings.w * 0.28,
-            y=self.settings.h * 0.71,
-            values=["1", "2", "3"],
+            texture=button_texture,
+            texture_press=button_texture_press,
+            x=self.w * 0.1,
+            y=self.h // 2,
+            values=["Level 1", "Level 2", "Level 3"],
             select_value=str(self.settings.fps),
-            width=110,
-            height=70,
+            width=self.w * 0.25,
+            height=self.h * 0.1,
             font=font,
             font_size=self.w * self.h // 75000,
             center_text=True,
@@ -112,6 +170,7 @@ class MainMenu:
             audio_player=self.audio
         )
         self.level_game.call = self.set_level
+
     def show_menu(self):
         clock = pygame.time.Clock()
         time = 0
@@ -140,8 +199,14 @@ class MainMenu:
             self.but_settings.draw(self.screen)  # Отрисовка кнопки
             self.but_exit.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
             self.but_exit.draw(self.screen)  # Отрисовка кнопки
+            self.level_game.update(is_click=is_click, mouse_pos=mouse_pos)
             self.level_game.draw(self.screen)
-            self.level_game.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice1.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice1.draw(self.screen)
+            # self.but_choice2.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice2.draw(self.screen)
+            # self.but_choice3.update(is_click=is_click, mouse_pos=mouse_pos)  # Обновляем состояние кнопки
+            # self.but_choice3.draw(self.screen)
 
             pygame.display.update()
 
@@ -163,7 +228,7 @@ class MainMenu:
                 time = 0
 
     def set_level(self):
-        self.returned_lvl = self.returned_lvl[:-1] + self.level_game.get_value()
+        self.returned_lvl = self.returned_lvl[:-1] + self.level_game.get_value()[-1]
 
     def exit_game(self):
         self.running = False
