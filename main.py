@@ -21,6 +21,7 @@ def start_game():
     audio = AudioManager()
     main_menu = MainMenu(settings, registry, audio, screen)
     main_menu.show_menu()
+    pygame.quit()
     return settings.reboot
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
