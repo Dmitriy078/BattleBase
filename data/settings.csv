@@ -1,6 +1,6 @@
 name_parameter;value
 full_screen_mode;False
 resolution;1600,900
-sound_volume;0
-music_volume;0
+sound_volume;40
+music_volume;50
 fps;60

@@ -38,7 +38,7 @@ class Character(pygame.sprite.Sprite):
         self.bullet = None
 
     # обнавление
-    def update(self, mouse_pos, all_bullets, camera, solid_objects):
+    def update(self, mouse_pos, all_bullets, camera, solid_objects, is_ai=False):
         self.time += 1
 
         if self.damage_time_i:
@@ -120,6 +120,9 @@ class Character(pygame.sprite.Sprite):
             elif (not self.control['up'] and not self.control['down'] and not self.control['left'] and
                   not self.control['right'] and not self.status == 'attack'):
                 self.status = 'idle'
+
+            if is_ai:
+                self.ai_controller()
         else:
             self.status = 'dead'
 
@@ -139,3 +142,6 @@ class Character(pygame.sprite.Sprite):
                 if pixel_color[0] > 0 or pixel_color[1] > 0 or pixel_color[2] > 0:
                     damage_image.set_at((x, y), pygame.Color(255, pixel_color[1], pixel_color[2]))
         return damage_image
+
+    def ai_controller(self):
+        pass

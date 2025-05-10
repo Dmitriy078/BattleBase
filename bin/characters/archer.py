@@ -5,12 +5,12 @@ from bin.game_over import GameOver
 
 # класс лучника
 class Archer(Character):
-    def __init__(self, res, settings, audio_player, name='archer_blue', pos=(0,0)):
+    def __init__(self, res, settings, audio_player, name='archer_blue', pos=(0, 0)):
         super().__init__(res, settings, audio_player, name=name, pos=pos)
 
     # обнавление
-    def update(self, mouse_pos, all_bullets, camera, solid_objects):
-        super().update(mouse_pos, all_bullets, camera, solid_objects)
+    def update(self, mouse_pos, all_bullets, camera, solid_objects, is_ai=False):
+        super().update(mouse_pos, all_bullets, camera, solid_objects, is_ai)
 
         if self.status == 'attack':
             if (self.current_frame == len(self.res.textures[self.name][self.direction][self.status]['frames']) - 2
@@ -24,3 +24,6 @@ class Archer(Character):
                     self.direction = 'left'
                 arrow = Arrow(self.res, self.settings, self.audio_player, pos=(x, y), target_point=mouse_pos)
                 all_bullets.add(arrow)
+
+    def ai_controller(self):
+        pass

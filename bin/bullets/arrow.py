@@ -1,6 +1,7 @@
 import math
 import pygame.sprite
 
+
 # класс стрелы
 class Arrow(pygame.sprite.Sprite):
     def __init__(self, res, settings, audio_player, name='arrow', pos=(0, 0), target_point=(0, 0)):
@@ -11,11 +12,11 @@ class Arrow(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.damage = 10
+        self.damage = 1000
         self.speed_x = settings.fps // 5 * (settings.w // 800)
         self.speed_y = settings.fps // 5 * (settings.h // 600)
 
-        self.time_health = settings.fps * 5
+        self.time_health = settings.fps * 1.5
         self.time = 0
         self.x, self.y = pos
         self.target_point = target_point

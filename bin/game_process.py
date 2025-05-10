@@ -96,8 +96,8 @@ class GameProcess:
             self.all_house_red.update()
             self.all_tower_blue.update(self.all_bullets_blue, self.all_solid_objects, self.all_characters_red)
             self.all_tower_red.update(self.all_bullets_red, self.all_solid_objects, self.all_characters_blue)
-            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects)
-            self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects)
+            self.all_characters_blue.update(mouse_pos, self.all_bullets_blue, camera, self.all_solid_objects, True)
+            self.all_characters_red.update(mouse_pos, self.all_bullets_red, camera, self.all_solid_objects, True)
             self.all_bullets_blue.update(self.all_characters_red, self.all_castle_red,
                                          self.all_tower_red, self.all_solid_objects)
             self.all_bullets_red.update(self.all_characters_blue, self.all_castle_blue,
@@ -159,54 +159,49 @@ class GameProcess:
                 player_rect = self.player.rect
                 pygame.draw.rect(self.screen, (255, 0, 0), player_rect, 2)
 
+            if ((self.player and len(self.all_castle_red) == 0) or
+                    not self.player or self.player.health <= 0 or len(self.all_castle_blue) == 0):
+                self.running = False
+
             # Отображение
             pygame.display.flip()
             self.clock.tick(60)
 
         self.running = True
+        total_text = ""
         if self.player and len(self.all_castle_red) == 0:
-            font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
-            text = Text(
-                texture=None,
-                text='Вы выиграли!',
-                x=self.settings.w // 2,
-                y=self.settings.h // 2,
-                width=self.settings.w * 0.4,
-                height=self.settings.h * 0.1,
-                text_color_rgb=(138, 9, 47),
-                font=font,
-                font_size=self.settings.w * self.settings.h // 75000,
-                center_text=True,
-                offset_text_x=0,
-                offset_text_y=0,
-            )
+            total_text = 'Вы выиграли!'
+        else:
+            total_text = 'Вы проиграли!'
 
-            while self.running:
-                self.screen.fill((0, 0, 0))
-                # Обработка событий
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
+        font = pygame.font.Font("resources/fonts/EpilepsySansBold.ttf", 30)
+        text = Text(
+            texture=None,
+            text=total_text,
+            x=self.settings.w * 0.3,
+            y=self.settings.h * 0.45,
+            width=self.settings.w * 0.4,
+            height=self.settings.h * 0.1,
+            text_color_rgb=(138, 9, 47),
+            font=font,
+            font_size=self.settings.w * self.settings.h // 75000,
+            center_text=True,
+            offset_text_x=0,
+            offset_text_y=0,
+        )
+
+        while self.running:
+            self.screen.fill((0, 0, 0))
+            # Обработка событий
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
                         self.running = False
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            self.running = False
 
-                text.draw(self.screen)
+            text.draw(self.screen)
 
-                # Отображение холста
-                pygame.display.flip()
-                self.clock.tick(60)
-        elif not self.player or self.player.health <= 0:
-            while self.running:
-                self.screen.fill((0, 0, 0))
-                # Обработка событий
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.running = False
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            self.running = False
-
-                # Отображение
-                pygame.display.flip()
-                self.clock.tick(60)
+            # Отображение
+            pygame.display.flip()
+            self.clock.tick(60)
